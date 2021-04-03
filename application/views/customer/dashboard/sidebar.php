@@ -31,7 +31,7 @@
             <img src="<?php echo base_url('images/profile.jpg') ?>" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="#" class="d-block"><?php echo $user['user_type']; ?></a>
+            <a href="#" class="d-block"><?php echo $user['first_name']; ?> <?php echo $user['last_name']; ?></a>
           </div>
         </div>
         <?php if($role == '3'): ?>
@@ -60,25 +60,23 @@
                 </p>
               </a>  
             </li>
-            <li class="nav-item" >
+            <!-- <li class="nav-item" >
               <a  class="nav-link" data-id="view-all-bookings">
               <i class="fas fa-eye"></i>             
                <p data-id="view-all-bookings">
                   View All Bookings
-                  <!-- <i class="right fas fa-angle-left"></i> -->
                 </p>
               </a>
-            </li>
-            <li class="nav-item" >
+            </li> -->
+            <!-- <li class="nav-item" >
               <a  class="nav-link" data-id="hotels-notification">
                        
               <i class="fas fa-bell"></i>
               <p data-id="hotels-notification">
                    Hotels Notification
-                  <!-- <i class="right fas fa-angle-left"></i> -->
                 </p>
               </a>
-            </li>
+            </li> -->
             <li class="nav-item" >
               <a  class="nav-link" data-id="all-hotel-bookings">
                   <p data-id="all-hotel-bookings">           

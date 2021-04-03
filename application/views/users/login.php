@@ -48,6 +48,12 @@ width: 100px;
 color: black;
 background-color: white;
 }
+.error{
+    color: red;
+}
+.help-block{
+    color: red;
+}
 
 
     </style>
@@ -57,11 +63,21 @@ background-color: white;
     <body>
     <div class="container" >
     <div class="row ">
-        <div class="col-md-4 col-md-offset-4 loginpanel" >
-            <div class="login-panel panel panel-success">
-            <div class="panel-heading">
-                    <h4 class="panel-title">Please Login Or Register</h4>
-                </div>
+        <div class="col-md-5 col-md-offset-5 loginpanel"  >
+        <!-- <div class="panel-heading">
+                    <span></span><h5 class="panel-title">HOTEL MANAGEMENT SYSTEM</h5>
+                </div> -->
+<!-- <div class="d-flex panel-heading">
+                    <div class="p-2 font-weight-bold"></div>
+                    <div class="ml-auto p-2 font-weight-bold"></div>
+</div> -->
+                    <div class="panel-heading ">
+                                  <div class="d-inline p-1  "> <img src="<?php echo base_url('images/fav1.png'); ?>" alt="" style="height: 25px;width:25px"></div>
+                                  <div class="d-inline "style="font-size:1.4rem">  HOTEL MANAGEMENT SYSTEM</div>  
+                                </div> 
+            <div class="login-panel panel panel-success" style="padding-left:50px; padding-right:50px;">
+            
+                
     <div class="regisFrm panel-body">
       <!-- Status message -->
       <?php  
@@ -71,41 +87,70 @@ background-color: white;
             echo '<p class="status-msg error">'.$error_msg.'</p>'; 
         } 
     ?>
-        <form action="" method="post">
+    <br>
+        <form action="" method="post" id="loginform"  >
         <fieldset>
-            <div class="form-group input-group">
-
-            <!-- <div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-key"></i></span>
-						</div>
-						<input type="password" class="form-control" placeholder="Enter Your Password">
-                        <?php echo form_error('password','<p class="help-block">','</p>'); ?>
-
-					</div> -->
-
-
-            <div class="input-group-prepend">
+                     <div class="form-group input-group">
+                        <div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-                <input class="form-control" type="email" name="email" placeholder="Enter Your Email" required="">
-                <?php echo form_error('email','<p class="help-block">','</p>'); ?>
-            </div>
-            <div class="form-group input-group">
-             <div class="input-group-prepend">
+                        <input class="form-control" type="email" name="email" placeholder="Enter Your Email" required>
+                     </div>
+                        <?php echo form_error('email','<p class="help-block">','</p>'); ?>
+                    <br>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
-                <input class="form-control" type="password" name="password" placeholder="Enter Your Password" required="">
-                <?php echo form_error('password','<p class="help-block">','</p>'); ?>
-            </div>
+                        <input class="form-control" type="password" name="password" placeholder="Enter Your Password" >
+                     </div>
+                     <?php echo form_error('password','<p class="help-block">','</p>'); ?>
+
+                     <br>
+
+          
+                
+           
             <div class="send-button">
                 <input class="btn btn-lg   login_btn" type="submit" name="loginSubmit" value="LOGIN">
             </div>
             </fieldset>
         </form>
+        <br>
         <p>Don't have an account? <a href="<?php echo base_url('users/registration'); ?>">Register</a></p>
+        <br>
     </div>
 </div>
         
         </div></div></div>
+        <script>
+                $(document).ready(function(){
+
+                $("#loginform").validate({
+                    rules:{
+                        email:{
+                            required:true,
+                            email:true
+                        },
+                        password:{
+                            required:true,
+                            minlength:5
+                        },
+                    }, 
+                    messages:{
+                        password:{
+                            required:"Please provide a valid password",
+                        }
+                    }
+
+                    
+                
+                
+                });
+
+            });
+            
+
+
+        </script>
     </body>

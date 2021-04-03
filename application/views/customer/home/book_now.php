@@ -33,18 +33,22 @@ background-color: white;
  
     border: 1px solid rgb(255 255 255 / 13%);
 }
-
+.error{
+  color:red;
+}
+ 
 
     </style>
 
 <div class="all-body" style="position: relative;">
    <div class=" dashboard active">  
      <section class="content active" id="hotel-info-form">    
+     <form method="post" name="rfd-form" id="rfd-form" enctype="multipart/form-data">
 
-                  <div id="select-success">
+       <div id="select-success">
                   </div>
-
-                  <div class="select-rooms">
+              <div style="background-color: white; border-radius:10px;">
+              <div class="select-rooms" style="padding: 14px;" >
                       <h5>Select Rooms</h5>
                           <div class="wrapper d-flex p-2" >
                             <div class=" dashboard active " >
@@ -52,12 +56,15 @@ background-color: white;
                                 <?php foreach($rooms as $room){ ?>
                                         <div class="col-md-3">
                                             <div class="custom-control custom-checkbox image-checkbox">
-                                                <input type="checkbox" class="custom-control-input get_room" data-id="room-<?php echo $room['room_id']; ?>" name="check[]" value="<?php echo $room['price']; ?>" id="room-sr<?php echo $room['room_id']; ?>a">
+                                                <input type="checkbox" class="custom-control-input get_room" data-id="room-<?php echo $room['room_id']; ?>" name="check_room[]" value="<?php echo $room['price']; ?>" id="room-sr<?php echo $room['room_id']; ?>a">
                                               
                                                 <label class="custom-control-label" for="room-sr<?php echo $room['room_id']; ?>a">
                                                     <img src="<?php echo base_url(); ?>/images/<?php echo $room['image']; ?>" alt="#" class="img-fluid">
                                                 </label>
-                                                <label for="room<?php echo $room['room_id']; ?>"><?php echo $room['price']; ?></label> 
+                                                <label class="text-primary" for="room<?php echo $room['room_id']; ?>"><?php echo $room['name']; ?></label> <br>
+                                                <label for="room<?php echo $room['room_id']; ?>">Price: <?php echo $room['price']; ?></label> <br>
+                                                <label for="room<?php echo $room['room_id']; ?>">Description: <?php echo $room['description']; ?></label> 
+
                                             </div>
                                         </div>
                                   <?php }   ?>
@@ -65,8 +72,8 @@ background-color: white;
                             </div>
                         </div>
                   </div>  
-       
-                <div class="select-foods">
+                                  <hr width="90%">
+                <div class="select-foods"style="padding: 14px;" >
                  <h5>Select Foods</h5>
                     <div class="wrapper d-flex p-2" >
                         <div class=" dashboard active " >
@@ -74,11 +81,14 @@ background-color: white;
                                 <?php foreach($foods as $food){ ?>
                                         <div class="col-md-3">
                                             <div class="custom-control custom-checkbox image-checkbox">
-                                                <input type="checkbox" class="custom-control-input get_food" data-id="food-<?php echo $food['food_id']; ?>" name="check[]" value="<?php echo $food['price']; ?>" id="food-sr<?php echo $food['food_id']; ?>a">                                             
+                                                <input type="checkbox" class="custom-control-input get_food" data-id="food-<?php echo $food['food_id']; ?>" name="check_food[]" value="<?php echo $food['price']; ?>" id="food-sr<?php echo $food['food_id']; ?>a">                                             
                                                 <label class="custom-control-label" for="food-sr<?php echo $food['food_id']; ?>a">
                                                     <img src="<?php echo base_url(); ?>/images/<?php echo $food['image']; ?>" alt="#" class="img-fluid">
                                                 </label>
-                                                <label for="food<?php echo $food['food_id']; ?>"><?php echo $food['price']; ?></label> 
+                                                <label class="text-primary" for="food<?php echo $food['food_id']; ?>"><?php echo $food['name']; ?></label> <br>
+                                                <label for="food<?php echo $food['food_id']; ?>">Price: <?php echo $food['price']; ?></label> <br>
+                                                <label for="food<?php echo $food['food_id']; ?>">Description: <?php echo $food['description']; ?></label> 
+
                                             </div>
                                         </div>
                                   <?php }   ?>
@@ -86,8 +96,8 @@ background-color: white;
                         </div>
                     </div>
                 </div>
-                
-              <div class="select-destinations">
+                <hr width="90%">
+              <div class="select-destinations"style="padding: 14px;" >
                 <h5>Select Destinations</h5>
                     <div class="wrapper d-flex p-2" >
 
@@ -97,12 +107,15 @@ background-color: white;
                                       <?php foreach($destinations as $destination){ ?>
                                               <div class="col-md-3">
                                                   <div class="custom-control custom-checkbox image-checkbox">
-                                                      <input type="checkbox" class="custom-control-input get_destination" data-id="destination-<?php echo $destination['destination_id']; ?>" name="check[]" value="<?php echo $destination['price']; ?>" id="destination-sr<?php echo $destination['destination_id']; ?>a">
+                                                      <input type="checkbox" class="custom-control-input get_destination" data-id="destination-<?php echo $destination['destination_id']; ?>" name="check_destination[]" value="<?php echo $destination['price']; ?>" id="destination-sr<?php echo $destination['destination_id']; ?>a">
                                                     
                                                       <label class="custom-control-label" for="destination-sr<?php echo $destination['destination_id']; ?>a">
                                                           <img src="<?php echo base_url(); ?>/images/<?php echo $destination['image']; ?>" alt="#" class="img-fluid">
                                                       </label>
-                                                      <label for="food<?php echo $destination['destination_id']; ?>"><?php echo $destination['price']; ?></label> 
+                                                      <label class="text-primary" for="destination<?php echo $destination['destination_id']; ?>"><?php echo $destination['name']; ?></label> <br>
+                                                      <label for="destination<?php echo $destination['destination_id']; ?>">Price: <?php echo $destination['price']; ?></label> <br>
+                                                      <label for="destination<?php echo $destination['destination_id']; ?>">Description: <?php echo $destination['description']; ?></label> 
+
                                                   </div>
                                               </div>
                                               <?php }   ?>
@@ -110,18 +123,28 @@ background-color: white;
                                 </div>
                       </div>
                 </div>
+
+
+              </div>
+
+           
                 
-                <div class="">
+                <div class="" style="padding: 14px;">
                   <button type="button" id="room-food-destination" data-id="hotel-booking-details" class="allnext rmf_btn float-right btn btn-primary">Next &raquo</button>
               </div> 
               <div id="result"></div>
+
+
+       </form>
+
+                
         </section>
         
 
     <section class="content" id="hotel-booking-details">
-          <div class=" content-wrapper " id="add-hotel-profile">
+          <div class="  " id="add-hotel-profile">
         
-            <div class="col-md-9">
+            <div class="col-md-12">
             <div class="card card-primary">
                     <div class="card-header" style="background: #01afd1;">
                       <h3 class="card-title">Order Your Hotel Booking Details</h3>
@@ -129,7 +152,7 @@ background-color: white;
                     <div class="alert alert-success alert-dismissible" id="success" style="display:none;">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
                   </div>
-                    <form method="post" name="hotel-info-form" id="hotel-info-form" enctype="multipart/form-data">
+                    <form method="post" name="order-your-hotel-booking" id="order-your-hotel-booking" enctype="multipart/form-data">
                       <div class="card-body">
                         <div class="form-group">
                           <label for="full_name">Full Name</label>
@@ -149,14 +172,38 @@ background-color: white;
                           <label for="current_address">Current Address</label>
                           <input type="text" class="form-control  form-control-border" id="current_address" name="current_address" placeholder="Enter Current Address" required>
                         </div>
-                        <div class="form-group">
-                          <label for="booking_date">Booking Date </label>
+                        <!-- <div class="form-group"> -->
+                          <!-- <label for="booking_date">Booking Date </label>
+                          
                           <input type="text" class="form-control  form-control-border" id="booking_date" name="booking_date" placeholder="Enter Booking Date" required>
+                         -->
+                         <div class="form-group">
+                  <label>Date:</label>
+                    <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                        <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate"id="booking_date" name="booking_date" placeholder="Enter Booking Date" required/>
+                        <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
-                        <div class="form-group">
+                    </div>
+                </div>
+                        <!-- </div> -->
+                        <!-- <div class="form-group">
                           <label for="time">Time</label>
                           <input type="number" class="form-control  " id="time" name="time"   placeholder="Select time" required>
-                        </div>
+                        </div> -->
+
+                        <div class="bootstrap-timepicker">
+                            <div class="form-group">
+                              <label for="time">Time picker:</label>
+
+                              <div class="input-group date" id="timepicker" data-target-input="nearest">
+                                <input type="text" class="form-control datetimepicker-input" id="time" name="time"  data-target="#timepicker"/>
+                                <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="far fa-clock"></i></div>
+                                </div>
+                                </div>
+                            </div>
+                </div>
                        <div class="form-group">
                           <label for="mobile_number">Mobile Number</label>
                           <input type="tel" class="form-control  " id="mobile_number" name="mobile_number"   placeholder="Mobile Number" required>
@@ -169,7 +216,7 @@ background-color: white;
                   <div class="card-footer">
                       <!-- <button type="button" id="previous-to-hotel-info" data-id="hotel-info-form" class="allnext btn btn-primary">&laquo; Previous</button> -->
 
-                        <button type="button" data-id="payment-amount-gateway"  id="submit-hotel-booking" class="allnext btn btn-primary">Next</button>
+                        <button type="button" data-id="payment-amount-gateway"  id="submit-hotel-booking" class="allnext btn btn-primary ">Next</button>
                       </div>
                     </form>
                   </div>
@@ -288,10 +335,14 @@ background-color: white;
             </div>
             <div class="row no-print">
                 <div class="col-12">
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="agreement">
-                    <label class="form-check-label" for="exampleCheck1">By clicking this, you are agreeing to the terms and conditions of Multi-Vendor Hotel System</label>
+                  <form id="terms-and-condition-form" action="
+                  ">
+                  <div class="form-check">
+                    <input type="checkbox" id="terms-and-condition" name="terms_and_condition"  class="form-check-input" >
+                    <label class="form-check-label" id="terms-and-condition" name="terms_and_condition" for="exampleCheck1">By clicking this, you are agreeing to the terms and conditions of Multi-Vendor Hotel System</label>
                 </div>
+              </form>
+                
                   <!-- <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a> -->
                   <!-- <button type="button" id="previous-to-payment-amount" data-id="payment-amount-gateway" class="allnext float-left btn btn-primary">&laquo; Previous</button> -->
 
@@ -450,6 +501,82 @@ background-color: white;
 </div>
 
         <script type="text/javascript">
+  /////////////////////////////////////////////DATE RANGE PICKER //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+$(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'bootstrap4'
+    })
+
+    //Datemask dd/mm/yyyy
+    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    //Datemask2 mm/dd/yyyy
+    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+    //Money Euro
+    $('[data-mask]').inputmask()
+
+    //Date range picker
+    $('#reservationdate').datetimepicker({
+        format: 'L'
+    });
+    //Date range picker
+    $('#reservation').daterangepicker()
+    //Date range picker with time picker
+    $('#reservationtime').daterangepicker({
+      timePicker: true,
+      timePickerIncrement: 30,
+      locale: {
+        format: 'MM/DD/YYYY hh:mm A'
+      }
+    })
+    //Date range as a button
+    $('#daterange-btn').daterangepicker(
+      {
+        ranges   : {
+          'Today'       : [moment(), moment()],
+          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        startDate: moment().subtract(29, 'days'),
+        endDate  : moment()
+      },
+      function (start, end) {
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+      }
+    )
+
+    //Timepicker
+    $('#timepicker').datetimepicker({
+      format: 'LT'
+    })
+
+    //Bootstrap Duallistbox
+    $('.duallistbox').bootstrapDualListbox()
+
+    //Colorpicker
+    $('.my-colorpicker1').colorpicker()
+    //color picker with addon
+    $('.my-colorpicker2').colorpicker()
+
+    $('.my-colorpicker2').on('colorpickerChange', function(event) {
+      $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
+    })
+
+    $("input[data-bootstrap-switch]").each(function(){
+      $(this).bootstrapSwitch('state', $(this).prop('checked'));
+    })
+
+  })
+
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
          $(document).ready(function(){
             // $('#input_starttime').pickatime({});
             const contents = document.querySelectorAll(".content"); 
@@ -457,7 +584,7 @@ background-color: white;
             const getRooms = document.querySelector(".get_room");
 
  /////////////////////////////////////////////Room Food Destination//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                             const  room = [];
+              const  room = [];
             const room_price = [];
             $(".get_room").on('click',(e)=>{      
               const getRoom = document.getElementById(e.target.id);
@@ -539,18 +666,144 @@ background-color: white;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////                                    
       
 ///////////////////////////////////////////////////////////////////////Room, food, destination selected and clicked next ////////////////////////////////////////////////////////////////////////////////////////////////////////////////                                    
+            
+      $("#rfd-form").validate({
+                    rules:{
+                      'check_room[]':{
+                            required:true,
+                                                     
+                        },
+                        'check_food[]':{
+                            required:true,                           
+                            
+                        },
+                        'check_destination[]':{
+                            required:true,
+                            
+                        },
+                    
+                     
+                    }, 
+                    messages:{
+                      'check_room[]':{
+                            required:"Please check at least one of the room",
+                            
+                        },
+                        'check_food[]':{
+                            required:"Please check at least one of the food",
+                            
+                        },
+                        'check_destination[]':{
+                            required:"Please check at least one of the destination",
+                            
+                            
+                        },
+                    
+                    },
+                   
+                    
+                
+                
+                });
+          
 
-            $('#room-food-destination').on('click', (e)=>{
-           
-              const tamount = document.getElementById('total_amount');
+          
+        
+        $('#room-food-destination').on('click', (e)=>{
+          if($("#rfd-form").valid()){
+            const tamount = document.getElementById('total_amount');
                      tamount.innerHTML = ` <label for="total_amount">Total Amount : </label>
                           <label >${sessionStorage.getItem("sumTotal")}</label> `;         
                       click_next(e);
+
+          }
+           
+            
             });
 
+            $("#order-your-hotel-booking").validate({
+                    rules:{
+                      full_name:{
+                            required:true,
+                            minlength:5,
+                            
+                        },
+                        gender:{
+                            required:true,
+                           
+                            
+                        },
+                        current_address:{
+                            required:true,
+                            
+                        },
+                        booking_date:{
+                            required:true,
+                            
+                            
+                        },
+                        time:{
+                            required:true,
+                            
+                        },
+                        mobile_number:{
+                            required:true,
+                            minlength:10,
+                            maxlength:10,
+                            number:true,
+                            
+                        },
+                     
+                     
+                    }, 
+                    messages:{
+                      full_name:{
+                            required:"Please Enter Your Full Name",
+                            minlength:"Full name should me more than 5 character"
+                            
+                        },
+                        gender:{
+                            required:"Please select your gender",
+                            
+                            
+                        },
+                        current_address:{
+                            required:"Please Enter your current address",
+                            
+                            
+                        },
+                        booking_date:{
+                            required:"Please select date",
+                         
+                            
+                        },
+                        time:{
+                            required:"Please select time",
+                            
+                        },
+                        mobile_number:{
+                            required:"Please enter valid number",
+                            minlength:"Number must not be less than 10",
+                            maxlength:"Number must not be more than 10",
+                            
+                            
+                        },
+                      
+                    },
+                   
+                    
+                
+                
+                });
+
+
+
+
             $('#submit-hotel-booking').on('click',(e)=>{ 
+              if($("#order-your-hotel-booking").valid()){
                 save_booking(e);
                  click_next(e);
+              }
             });
 
 
@@ -563,6 +816,7 @@ background-color: white;
                             let currentAddress = $('#current_address').val();
                             let bookingDate = $('#booking_date').val();
                             let time = $('#time').val();
+                            
                             let mobileNumber = $('#mobile_number').val(); 
                             // let totalAmount =  $('#total_amount').val(); 
                             // console.log('here');
@@ -605,7 +859,9 @@ background-color: white;
                                     // $('#fupForm').find('input:text').val('');
                                     get_booking(e);
                                     $("#select-success").show();
-                                    $('#select-success').html('Data added successfully !'); 
+                                    $('#select-success').html('Booking added successfully !'); 
+                                    setTimeout( "$('#select-success').hide();", 2000);
+
                                     
                                   }
                                   else if(dataResult.statusCode==201){
@@ -825,32 +1081,7 @@ background-color: white;
                               <!-- /.row -->
 
                               <!-- Table row -->
-                              <div class="row">
-                                <div class="col-12 table-responsive">
-                                  <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                      <th>SN</th>
-                                      <th>Destination</th>
-                                      <th>Room</th>
-                                      <th>Food</th>
-                                      <th>Currency</th>
-                                      <th>Total</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                      <td>1</td>
-                                      <td>${booking['destination_id']}</td>
-                                      <td>${booking['room_id']}</td>
-                                      <td>${booking['food_id']}</td>
-                                      <td>NRS</td>
-                                      <td>Nrs ${amount}</td>
-                                    </tr>
-                                  
-                                    </tbody>
-                                  </table>
-                                </div>
+                       
                                 <!-- /.col -->
                               </div>
                               <!-- /.row -->
@@ -897,6 +1128,32 @@ background-color: white;
                               
 
                             }
+                                   // <div class="row">
+                              //   <div class="col-12 table-responsive">
+                              //     <table class="table table-striped">
+                              //       <thead>
+                              //       <tr>
+                              //         <th>SN</th>
+                              //         <th>Destination</th>
+                              //         <th>Room</th>
+                              //         <th>Food</th>
+                              //         <th>Currency</th>
+                              //         <th>Total</th>
+                              //       </tr>
+                              //       </thead>
+                              //       <tbody>
+                              //       <tr>
+                              //         <td>1</td>
+                              //         <td>${booking['destination_id']}</td>
+                              //         <td>${booking['room_id']}</td>
+                              //         <td>${booking['food_id']}</td>
+                              //         <td>NRS</td>
+                              //         <td>Nrs ${amount}</td>
+                              //       </tr>
+                                  
+                              //       </tbody>
+                              //     </table>
+                              //   </div>
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////                                    
                          
@@ -907,10 +1164,26 @@ background-color: white;
                 click_next(e);
             });
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////                                    
-            
+
+              $("#terms-and-condition-form").validate({
+                rules:{
+                  terms_and_condition:{
+                      required:true,
+                  },
+                  messages:{
+                    terms_and_condition:{
+                      required:"Please check to accept the terms and condtion",
+                  },
+                    
+                  }
+                }
+
+              });
             $('#proceed-to-pay').on('click',(e)=>{
+              if($("#terms-and-condition-form").valid()){
             
                 click_next(e);
+              }
             });
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////                                    
 
@@ -921,6 +1194,8 @@ background-color: white;
                 document.body.innerHTML = printsection;
                 window.print();
                 document.body.innerHTML = getFullContent;
+                alert('Hotel Booked Successfully');
+                window.location.replace("http://localhost/hm/users/customer_home/");
             // }
              
             // click_next(e);

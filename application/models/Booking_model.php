@@ -136,6 +136,122 @@ class Booking_model extends CI_Model
         // return $result;
 
     }
+    public function get_all_seller_booking($customer_id){
+        
+        //get hotel id
+          //Select the hotel_id///
+          
+
+          $this->db->select('hotel_id'); 
+          $this->db->from('hotel'); 
+          $this->db->where('user_id', $customer_id['id']);
+      
+          // $this->db->where('booking_date <=', $today_date);    
+          $id = $this->db->get()->result_array();   
+          if($id){
+
+                    $hotel_id =  ($id[0]['hotel_id']);
+                    $this->db->select('hotel.image,booking.customer_id,booking.total_amount,booking.booking_id,booking.full_name,booking.hotel_id,booking.current_address,booking.booking_date,booking.time,booking.food_id,booking.room_id,booking.destination_id,booking.status');
+                    $this->db->from('hotel');
+                    $this->db->join('booking', 'booking.hotel_id = hotel.hotel_id');
+                    $this->db->where('booking.hotel_id', $hotel_id);   
+                    $query = $this->db->get();
+                    $result = $query->result_array(); 
+                   
+                    return $result;
+
+          } else{
+            return 0;
+          }
+                
+        
+
+    }
+    public function get_hotel_status($customer_id){
+        $status =0;
+        $this->db->select('hotel.image,booking.customer_id,booking.total_amount,booking.booking_id,booking.full_name,booking.hotel_id,booking.current_address,booking.booking_date,booking.time,booking.food_id,booking.room_id,booking.destination_id,booking.status');
+        $this->db->from('hotel');
+        $this->db->join('booking', 'booking.hotel_id = hotel.hotel_id');
+        $this->db->where('booking.status', $status); 
+
+        // $this->db->where('booking.customer_id', $customer_id['id']);
+
+         $query = $this->db->get();
+         $result = $query->num_rows(); 
+         if($result == 0){
+            return 0;
+
+         }
+        //  print_r($result);
+        //  exit();
+         return $result;
+
+
+        
+        // $this->db->select('hotel_id'); 
+        // $this->db->from('hotel'); 
+        // $this->db->where('user_id', $customer_id['id']);
+    
+        // $id = $this->db->get()->result_array();   
+        // if($id){
+        //     $status =0;
+        //           $hotel_id =  ($id[0]['hotel_id']);
+        //           $this->db->select('hotel.image,booking.customer_id,booking.total_amount,booking.booking_id,booking.full_name,booking.hotel_id,booking.current_address,booking.booking_date,booking.time,booking.food_id,booking.room_id,booking.destination_id,booking.status');
+        //           $this->db->from('hotel');
+        //           $this->db->join('booking', 'booking.hotel_id = hotel.hotel_id');
+        //           $this->db->where('booking.hotel_id', $hotel_id);   
+        //           $this->db->where('booking.status', $status);   
+
+        //           $query = $this->db->get();
+        //           $result = $query->num_rows(); 
+                 
+        //           return $result;
+
+        // } else{
+        //   return 0;
+        // }
+
+
+        // $this->db->where('status =', 0);
+        //     $query = $this->db->get($this->table);
+        //  $result =$query->num_rows();
+        //  return $result;
+
+    }
+    public function get_hotel_seller_status($customer_id){
+        
+        $this->db->select('hotel_id'); 
+        $this->db->from('hotel'); 
+        $this->db->where('user_id', $customer_id['id']);
+    
+        // $this->db->where('booking_date <=', $today_date);    
+        $id = $this->db->get()->result_array();   
+        if($id){
+            $status =0;
+                  $hotel_id =  ($id[0]['hotel_id']);
+                  $this->db->select('hotel.image,booking.customer_id,booking.total_amount,booking.booking_id,booking.full_name,booking.hotel_id,booking.current_address,booking.booking_date,booking.time,booking.food_id,booking.room_id,booking.destination_id,booking.status');
+                  $this->db->from('hotel');
+                  $this->db->join('booking', 'booking.hotel_id = hotel.hotel_id');
+                  $this->db->where('booking.hotel_id', $hotel_id);   
+                  $this->db->where('booking.status', $status);   
+
+                  $query = $this->db->get();
+                  $result = $query->num_rows(); 
+                 
+                  return $result;
+
+        } else{
+          return 0;
+        }
+
+
+        $this->db->where('status =', 0);
+            $query = $this->db->get($this->table);
+         $result =$query->num_rows();
+         return $result;
+
+    }
+
     public function updateStatus($id,$booking_id){
         // $user_id = $this->session->userdata('userId') ;
         // print_r($booking_id);
@@ -148,12 +264,43 @@ class Booking_model extends CI_Model
 
         
     }
-    public function get_hotel_status(){
+   
 
-        $this->db->where('status =', 0);
-            $query = $this->db->get($this->table);
-         $result =$query->num_rows();
-         return $result;
+    public function all_customer_booking(){
+        $user_id = $this->session->userdata('userId') ;
+        
+        $today_date = date("Y-m-d");
+       $status = 1;
+        
+        //Select the hotel_id///
+        $this->db->select('hotel_id'); 
+        $this->db->from($this->table); 
+        $this->db->where('customer_id', $user_id);
+        // $this->db->where('booking_date <=', $today_date);
+    
+        $id = $this->db->get()->result_array(); 
+        
+      
+        $hotel_id =  ($id[0]['hotel_id']);
+       
+        //return the booking details with hotel image
+        $this->db->select('hotel.image,booking.hotel_id,booking.full_name,booking.mobile,booking.current_address,booking.food_id,booking.destination_id,booking.room_id,booking.total_amount'); 
+        $this->db->from('hotel');
+        $this->db->join('booking', 'booking.hotel_id = hotel.hotel_id');
+        $this->db->where('booking.hotel_id', $hotel_id);
+        $this->db->where('booking.customer_id', $user_id);
+        $this->db->where('booking.status', $status);
 
+
+
+
+  
+        $query = $this->db->get(); 
+      
+        $result = $query->result_array(); 
+      
+       
+        return $result;
     }
+
 }

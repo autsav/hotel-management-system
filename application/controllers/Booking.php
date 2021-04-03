@@ -80,10 +80,33 @@ class Booking extends CI_Controller
             $this->Booking_model->updateStatus($id, $booking_id);
             return '0';
         }
-
+ }
+    public function view_all_customer_booking(){
+        
+        if($this->input->post('type') == '1'){
            
-       
-       
+            $data= $this->Booking_model->all_customer_booking();
+           
+            if($data){
+
+                echo json_encode(array(
+                    "data" =>$data,
+                    "statusCode"=>200,
+                ));
+            }else{
+                echo json_encode(array(
+                    "statusCode"=>201,
+                ));
+
+            }
+          
+
+        }
+
+
+      
+     
+
     }
 
 

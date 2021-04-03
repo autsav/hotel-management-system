@@ -162,4 +162,22 @@ class User extends CI_Model{
         //         }
 
     }
+    public function get_advertisement(){
+        // $this->db->select('*'); 
+        // $this->db->from('advertisement'); 
+        // $query = $this->db->get(); 
+        // $result = $query->result_array(); 
+        // print_r($result);
+        // exit();
+        // return count($result);
+
+        $this->db->from('advertisement'); 
+        $this->db->order_by('id',"desc");
+        $this->db->limit(1);
+        $query = $this->db->get(); 
+        $result = $query->result_array(); 
+     
+        return $result[0];
+
+    }
 }
