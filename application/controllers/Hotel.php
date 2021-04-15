@@ -12,6 +12,7 @@ class Hotel extends CI_Controller
 		$this->load->model('Food_model');
 		$this->load->model('Room_model');
 		$this->load->model('Employee_model');
+		$this->load->model('Booking_model');
 
 
 
@@ -138,7 +139,13 @@ class Hotel extends CI_Controller
 						} else if($type == 'rooms')
 						{
 							$this->Room_model->save_room($file_name,$hotel_id,$type, $price,$description,$name);
-						} else{
+						}else if($type == 'hotels')
+						{	
+						
+
+							$this->Hotel_model->save_hotel_image($file_name,$hotel_id,$type);
+						} 
+						else{
 							$this->Destination_model->save_destination($file_name,$hotel_id,$type, $price,$description,$name);
 						}
 		
@@ -169,6 +176,8 @@ class Hotel extends CI_Controller
 			$data['foods'] = $this->Hotel_model->get_foods_details($hotel_id);
 			$data['destinations']= $this->Hotel_model->get_destinations_details($hotel_id);
 			$data['hotel_id']= $hotel_id;
+			$data['hotel_info']= $this->Hotel_model->get_hotel_name($hotel_id);
+            $data['get_loyalty'] = $this->Booking_model->loyalty_point();
 
 		
             $con = array( 
@@ -177,6 +186,7 @@ class Hotel extends CI_Controller
 			
 
 			$data['user'] = $this->user->getRows($con); 
+			
 			// $data['hotels'] = $this->Hotel_model->get_hotel_details($con);
 
 			$this->load->view('elements/header', $data); 
@@ -201,9 +211,14 @@ class Hotel extends CI_Controller
 		$hotel_id = $this->input->post('hotelId');
         $user_id = $this->session->userdata('userId');
         $data=$this->Hotel_model->view_hotel($hotel_id, $user_id);
-     
+		$hotel_image_data=$this->Hotel_model->view_hotel_image($hotel_id);
+    //  print_r($hotel_image_data);
+	//  print_r($data);
+
+	//  exit();
         echo json_encode(array(
-            "data" =>$data
+            "data" =>$data,
+			"hotel_image_data" => $hotel_image_data
         ));
 
 	}

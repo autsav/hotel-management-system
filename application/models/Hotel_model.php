@@ -161,6 +161,19 @@ class Hotel_model extends CI_Model
         return $result;
 
     }
+    public function view_hotel_image($hotel_id){
+        $this->db->select('image_name'); 
+        $this->db->from('hotel_image'); 
+        $this->db->where('hotel_id', $hotel_id);
+        // $this->db->where('user_id', $user_id);
+
+        $query = $this->db->get(); 
+        $result = $query->result_array(); 
+       
+        return $result;
+
+    }
+
     public function save_review($hotel_id, $user_id, $rate , $comment)
     {
         $query="INSERT INTO `rating`( `hotel_id`, `user_id`,`rating`,`comment`) 
@@ -270,6 +283,30 @@ class Hotel_model extends CI_Model
        
     
 
+    }
+
+    public function get_hotel_name($hotel_id){
+        $this->db->select('name,email,address,phone'); 
+        $this->db->from('hotel'); 
+        $this->db->where('hotel_id', $hotel_id);
+        $query = $this->db->get(); 
+        $result = $query->result_array(); 
+       
+          return $result;
+
+
+    }
+
+    public function save_hotel_image($file_name,$hotel_id,$type){
+        $query="INSERT INTO `hotel_image`(`hotel_id`,`image_name`) 
+		VALUES ('$hotel_id','$file_name')";
+    
+		$this->db->query($query); 
+
+
+    }
+    public function get_loyalty($id){
+        
     }
   
 }

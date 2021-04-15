@@ -9,13 +9,14 @@ background-repeat: no-repeat;
 height: 100%;
 font-family: 'Numans', sans-serif;
 }
-/* .registerpanel{
-    background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');
+.registerpanel{
+    width: auto;
+    /* background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');
 background-size: cover;
 background-repeat: no-repeat;
 height: 100%;
-font-family: 'Numans', sans-serif;
-} */
+font-family: 'Numans', sans-serif; */
+}
 .registerpanel h3,p ,.registration_type ,.gender{
     
     color: white;
@@ -65,13 +66,29 @@ label {
     /* width: 150px; */
     
 }
+.registration-form {
+    display: block;
+    width: 85%;
+    height: calc(2.25rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    box-shadow: inset 0 0 0 transparent;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
 
   </style>
 	
     <!-- Registration form -->
     <div class="container"><!-- container class is used to centered  the body of the browser with some decent width-->
       <div class="row"><!-- row class is used for grid system in Bootstrap-->
-          <div class="col-md-8 col-md-offset-8 registerpanel"><!--col-md-4 is used to create the no of colums in the grid also use for medimum and large devices-->
+          <div class="col-md-6 col-md-offset-8 registerpanel"><!--col-md-4 is used to create the no of colums in the grid also use for medimum and large devices-->
               <div class="register-panel panel panel-success " style="padding-left:50px; padding-right:50px;">
                   <div class="panel-heading">
                       <h3 class="panel-title">REGISTER AS USER</h3>
@@ -102,7 +119,7 @@ label {
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                                 </div>
-                                                <input class="form-control" type="text" id="first_name" name="first_name" placeholder="FIRST NAME" value="<?php echo !empty($user['first_name'])?$user['first_name']:''; ?>" required/>
+                                                <input class="registration-form" type="text" id="first_name" name="first_name" placeholder="FIRST NAME" value="<?php echo !empty($user['first_name'])?$user['first_name']:''; ?>" required/>
                                             </div>
                                             <?php echo form_error('first_name','<p class="help-block">','</p>'); ?>
 
@@ -110,7 +127,7 @@ label {
                                             <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                                 </div>
-                                                <input class="form-control" type="text" name="last_name" id="last_name" placeholder="LAST NAME" value="<?php echo !empty($user['last_name'])?$user['last_name']:''; ?>" required/>
+                                                <input class="registration-form" type="text" name="last_name" id="last_name" placeholder="LAST NAME" value="<?php echo !empty($user['last_name'])?$user['last_name']:''; ?>" required/>
                                             </div>
                                             <?php echo form_error('last_name','<p class="help-block">','</p>'); ?>
 
@@ -118,7 +135,7 @@ label {
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                                 </div>
-                                                <input class="form-control" type="email" name="email" id="email" placeholder="EMAIL" value="<?php echo !empty($user['email'])?$user['email']:''; ?>" >
+                                                <input class="registration-form" type="email" name="email" id="email" placeholder="EMAIL" value="<?php echo !empty($user['email'])?$user['email']:''; ?>" >
 
                                             </div>
                                             <?php echo form_error('email','<p class="help-block">','</p>'); ?>
@@ -127,7 +144,7 @@ label {
                                             <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-key"></i></span>
                                                 </div>
-                                                <input class="form-control" type="password" name="password" id="password" placeholder="PASSWORD" required>
+                                                <input class="registration-form" type="password" name="password" id="password" placeholder="PASSWORD" required>
                                             </div>
                                             <?php echo form_error('password','<p class="help-block">','</p>'); ?>
 
@@ -135,7 +152,7 @@ label {
                                             <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-key"></i></span>
                                                 </div>
-                                                <input class="form-control" type="password" name="conf_password" id="conf_password" placeholder="CONFIRM PASSWORD" required>
+                                                <input class="registration-form" type="password" name="conf_password" id="conf_password" placeholder="CONFIRM PASSWORD" required>
                                             </div>
                                             <?php echo form_error('conf_password','<p class="help-block">','</p>'); ?>
 
@@ -167,7 +184,7 @@ label {
                                                 <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                                     </div>
-                                                <input class="form-control" type="text" id="phone" name="phone" placeholder="PHONE NUMBER" value="<?php echo !empty($user['phone'])?$user['phone']:''; ?>">
+                                                <input class="registration-form" type="text" id="phone" name="phone" placeholder="PHONE NUMBER" value="<?php echo !empty($user['phone'])?$user['phone']:''; ?>">
                                             </div>
                                             <?php echo form_error('phone','<p class="help-block">','</p>'); ?>
 

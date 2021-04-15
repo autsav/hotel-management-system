@@ -237,9 +237,9 @@
                       <img class="card-img-top" style="height: 200px;"  alt="100x100" src="<?php echo base_url(); ?>/images/<?php echo $hotel['image']; ?>"
                               data-holder-rendered="true">
                               <div class="card-body">
-                              <div class="card-text"><strong><?php echo $hotel['name']; ?></strong></div>
-                              <div class="card-text"><?php echo $hotel['email']; ?></div>
-                              <div class="card-text"><?php echo $hotel['address']; ?></div>
+                              <div class="card-title"><strong><?php echo $hotel['name']; ?></strong></div>
+                              <div class="card-text hotel-email"><?php echo $hotel['email']; ?></div>
+                              <div class="card-text hotel-address"><?php echo $hotel['address']; ?></div>
                               <br>
                               <div class="card-text" style=" "><?php echo $hotel['description']; ?></div>
                               <br>
@@ -249,8 +249,8 @@
                                 </div>  -->
                                 
                                 <div class="d-flex">
-                                     <div class=" p-2  text-black"><i class="fas fa-hotel"></i> <?php echo $hotel['rate']; ?> Start Hotel</div>
-                                    <div class="ml-auto p-2  text-black"> <i class="fas fa-phone"></i>  <?php echo $hotel['phone']; ?></div>      
+                                     <div class=" p-2  text-black"><i class="fas fa-hotel hotel-rate "></i> <?php echo $hotel['rate']; ?> Start Hotel</div>
+                                    <div class="ml-auto p-2  text-black"> <i class="fas fa-phone hotel-mobile"></i>  <?php echo $hotel['phone']; ?></div>      
                                 </div>
 
                                 <!-- <h5 class="card-title"><?php echo $hotel['name']; ?></h5></br>
@@ -972,11 +972,13 @@ function view_all_hotel_div(){
 
     const search = () =>{
         let filter = document.getElementById('myInput').value.toUpperCase();
+      
         ///////////////////////view-all-hotels search///////////////////////
         let viewAllHotel = document.getElementById('view-all-hotels');
+        
         let hotelCard = document.querySelectorAll('.all-hotel');
         let cardTitle = viewAllHotel.querySelectorAll('.card-title');
-
+        let lenghtOfArray = cardTitle.length;
         let cardHotelEmail = viewAllHotel.querySelectorAll('.hotel-email');
         let cardHotelAddress = viewAllHotel.querySelectorAll('.hotel-address');
         let cardHotelRate = viewAllHotel.querySelectorAll('.hotel-rate');
@@ -984,8 +986,8 @@ function view_all_hotel_div(){
 
         
       
-        let lenghtOfArray = cardTitle.length;
-
+       
+        console.log(lenghtOfArray);
         for(let i=0; i<lenghtOfArray; i++){
           cardHotelEmailText =  (cardHotelEmail[i]); 
           cardHotelAddressText =  (cardHotelAddress[i]);  
@@ -1156,7 +1158,7 @@ function view_all_hotel_div(){
                                           success: function(result){
                                               const pendingBtn = document.getElementById(userId);
                                               pendingBtn.innerHTML = `<div id="${userId}">                
-                                                          <button onclick="status_pending($booking_id = ${userId})" name="did" class="btn btn-danger"  data-cid="0">De-Active</button>
+                                                          <button onclick="status_deactive($user_id = ${userId})" name="did" class="btn btn-danger"  data-cid="0">De-Active</button>
                                                           </div>`;
                                               
                                               
@@ -1184,7 +1186,7 @@ function view_all_hotel_div(){
                                           success: function(result){
                                               const pendingBtn = document.getElementById(userId);
                                               pendingBtn.innerHTML = `<div id="${userId}">                
-                                                          <button onclick="status_pending($booking_id = ${userId})" name="aid" class="btn btn-success"  data-cid="0">Active</button>
+                                                          <button onclick="status_active($user_id = ${userId} )" name="aid" class="btn btn-success"  data-cid="0">Active</button>
                                                           </div>`;
                                               
                                               
@@ -1300,7 +1302,6 @@ function view_all_hotel_div(){
                             rules:{
                               upload_advertisement_image:{
                                     required:true,
-                                    extension: "png|jpeg|jpg",
                                     
                                 },
                             
@@ -1308,7 +1309,6 @@ function view_all_hotel_div(){
                             messages:{
                               upload_advertisement_image:{
                                     required:"Please select an image",
-                                    extension: "The image must be in png|jpeg|jpg format",
                                 },
                             },
 

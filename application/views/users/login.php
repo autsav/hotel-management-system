@@ -9,14 +9,11 @@ background-repeat: no-repeat;
 height: 100%;
 font-family: 'Numans', sans-serif;
 }
-/* .loginpanel{
-    background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');
-background-size: cover;
-background-repeat: no-repeat;
-height: 100%;
-font-family: 'Numans', sans-serif;
+.loginpanel{
+   width: auto;
 
-} */
+}
+
 .panel-heading{
     margin-top:30px;
     color: white;
@@ -54,6 +51,22 @@ background-color: white;
 .help-block{
     color: red;
 }
+.login-form {
+    display: block;
+    width: 85%;
+    height: calc(2.25rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    box-shadow: inset 0 0 0 transparent;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
 
 
     </style>
@@ -90,19 +103,19 @@ background-color: white;
     <br>
         <form action="" method="post" id="loginform"  >
         <fieldset>
-                     <div class="form-group input-group">
+                     <div class="form-group input-group ">
                         <div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-                        <input class="form-control" type="email" name="email" placeholder="Enter Your Email" required>
+                        <input class="login-form" type="email" name="email" placeholder="Enter Your Email" required>
                      </div>
                         <?php echo form_error('email','<p class="help-block">','</p>'); ?>
                     <br>
-                    <div class="form-group input-group">
+                    <div class="form-group input-group ">
                         <div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
-                        <input class="form-control" type="password" name="password" placeholder="Enter Your Password" >
+                        <input class="login-form" type="password" name="password" placeholder="Enter Your Password" >
                      </div>
                      <?php echo form_error('password','<p class="help-block">','</p>'); ?>
 

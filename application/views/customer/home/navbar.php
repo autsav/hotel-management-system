@@ -9,15 +9,47 @@
     border-bottom: 1px solid #dee2e6;
     z-index: 1034;
 }
+.hotel-header {
+  font-family: 'Bebas+Neue', sans-serif !important;
+}
+.navbar-white {
+    background-color: #343a40;
+    
+}
+.nav-link{
+  padding-right: 4px;
+}
+.navactive{
+  background:white;
+  color:#343a40;
+  border-radius: 5px;
+}
+.navbar-light .navbar-nav .navdeactive {
+    color: #f8f9fa;
+}
+.navdeactive:hover{
+  width: 90%;
+  border-radius: 5px;
+color: black;
+background-color: white;
+}
+.ml-auto li{
+  padding-right: 5px;
+}
+.customerPoint{
+  border-radius: 50px;
+  background: #ffc107;
+  
+}
 </style>
 <nav class="navbar main-header-1 navbar-expand navbar-white navbar-light">
 
 <!-- Left navbar links -->
 <div class="navbar-nav" style=" height:50px">
     <!-- <img src="<?php echo base_url('images/fav.png'); ?>" alt=""> -->
-    <div class="">
+    <div class="hotel-header">
       <a href="<?php echo base_url('users/customer_home/') ?>" class="nav-link">
-      <span  class="brand-text font-weight-dark" style="font-size: 20px; color:black">Hotel Management System</span>
+      <span  class="brand-text font-weight-dark" style="font-size: 25px; color:white">Hotel Management System</span>
 
       </a>
     </div>
@@ -35,7 +67,6 @@
                           <i class="fas fa-search"></i>
                         </button>
                         <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                          <i class="fas fa-times"></i>
                         </button>
                       </div>
                     </div>
@@ -56,19 +87,23 @@
   <!-- <li class="nav-item" style="margin-left: 10px; margin-top:-5px">
   <a href="#" class="nav-link"><?php echo $user['user_type']; ?></a>
   </li> -->
+ 
 
   <li class="nav-item d-none d-sm-inline-block"  >
-    <a href="<?php echo base_url('users/customer_home/') ?>" class="nav-link">Home</a>
+    <a href="<?php echo base_url('users/customer_home/') ?>" class="nav-link navactive">Home</a>
   </li>
   <li class="nav-item d-none d-sm-inline-block">
-    <a href="<?php echo base_url('users/dashboard/') ?>" class="nav-link">Dashboard</a>
+    <a href="<?php echo base_url('users/dashboard/') ?>" class="nav-link navdeactive">Dashboard</a>
+  </li>
+  <li class="nav-item d-none d-sm-inline-block"  >
+    <a href="<?php echo base_url('users/customer_home/') ?>" class="nav-link customerPoint" ><span style=" color:black; font-weight: bold;">Loyalty Point : </span><span style="color:black;padding:6px ;border-radius:50px;background:white; font-weight: bold;"><?php print_r($get_loyalty)?></span> </a>
   </li>
 
   
 
   <li class="nav-item" style="margin-left: 10px; margin-top:-10px">
     <a class="nav-link" href="<?php echo base_url('users/logout'); ?>" role="button">
-    <i class="fas fa-sign-out-alt fa-2x" style="height: 20px;" ></i>
+    <i class="fas fa-sign-out-alt fa-2x" style="height: 20px;color:white;" ></i>
     </a>
   </li>
 </ul>

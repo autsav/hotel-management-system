@@ -57,6 +57,8 @@ class Users extends CI_Controller {
                 } 
             }
             $data['hotels'] = $hotel_array;
+            $data['get_loyalty'] = $this->Booking_model->loyalty_point();
+           
             // print_r(($hotel_array));
             // exit();
                 
@@ -142,6 +144,8 @@ class Users extends CI_Controller {
 
             $data['user'] = $this->user->getRows($con);    
             $data['hotels'] = $this->Hotel_model->get_all_details($con);
+            $data['get_loyalty'] = $this->Booking_model->loyalty_point();
+
             $data['advertisement'] = $this->user->get_advertisement();
 
            

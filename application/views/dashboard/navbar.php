@@ -1,3 +1,20 @@
+  <style>
+    .navbar-white {
+    background-color: #343a40;
+    
+}
+.navbar-light .navbar-nav .nav-link {
+    color: #d4dfea;
+}
+.navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
+  color: #f8f9fa;
+}
+.navactive{
+  background:white;
+  color:#343a40;
+  border-radius: 5px;
+}
+  </style>
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
@@ -15,7 +32,6 @@
                   <i class="fas fa-search"></i>
                 </button>
                 <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                  <i class="fas fa-times"></i>
                 </button> -->
               </div>
             </div>
@@ -35,7 +51,7 @@
       <a href="#" class="nav-link"><?php echo $user['user_type']; ?></a>
       </li> -->
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Dashboard</a>
+        <a href="#" class="nav-link ">Dashboard</a>
       </li>
 
       <!-- <li class="nav-item">

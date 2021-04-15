@@ -1,4 +1,145 @@
     <style>
+
+/* @import url("https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,700&display=swap"); */
+
+/*
+=============== 
+Variables
+===============
+*/
+/* Created By utsab Adhikari */
+ 
+:root {
+  --clr-grey-1: hsl(209, 61%, 16%);
+  --clr-grey-2: hsl(211, 39%, 23%);
+  --clr-grey-3: hsl(209, 34%, 30%);
+  --clr-grey-4: hsl(209, 28%, 39%);
+  /* grey used for paragraphs */
+  --clr-grey-5: hsl(210, 22%, 49%);
+  --clr-grey-6: hsl(209, 23%, 60%);
+  --clr-grey-7: hsl(211, 27%, 70%);
+  --clr-grey-8: hsl(210, 31%, 80%);
+  --clr-grey-9: hsl(212, 33%, 89%);
+  --clr-grey-10: hsl(210, 36%, 96%);
+  --clr-white: #fff;
+  --clr-red-dark: hsl(360, 67%, 44%);
+  --clr-red-light: hsl(360, 71%, 66%);
+  --clr-green-dark: hsl(125, 67%, 44%);
+  --clr-green-light: hsl(125, 71%, 66%);
+  --clr-black: #222;
+  --ff-primary: "Roboto", sans-serif;
+  --ff-secondary: "Open Sans", sans-serif;
+  --transition: all 0.40s linear;
+  --spacing: 0.25rem;
+  --radius: 0.5rem;
+  --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  --max-width: 1170px;
+  --fixed-width: 620px;
+}
+
+@media screen and (min-width: 800px) {
+  .modal-container h4{
+    font-size: 1.15rem;
+  }
+
+}
+@media screen and (min-width: 992px) {
+
+}
+
+/*
+=============== 
+Modal
+===============
+*/
+
+.modal-overlay {
+  position: absolute;
+  top: 0.2rem;
+  right: 0.2rem;
+  width: 0vw;
+  height: 0vh;
+  background: rgba(73, 166, 233, 0.5);
+  display: grid;
+  /* place-items: center; */
+  transition: width .35s ease-in-out;
+  visibility: hidden;
+  z-index: -10;
+}
+/* OPEN/CLOSE MODAL */
+.open-modal {
+  visibility: visible;
+  z-index: 10;
+}
+.modal-container {
+  font-family: var(--ff-secondary);
+  color: var(--clr-white);
+  box-shadow: 5px 10px 8px #888888;
+  position: absolute;
+  top: 0.2rem;
+  right: 0.2rem;
+  background: var(--clr-white);
+  border-radius: var(--radius);
+  transition: width .35s ease-in-out;
+  width: 25vw;
+  height: 13vh;
+  max-width: var(--fixed-width);
+  text-align: left;
+  display: grid;
+  place-items: left;
+}
+.modal-container h4{
+  margin-left:1rem ;
+ 
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+.modal-container p{
+  font-size: 0.85rem;
+  margin-left:1rem ;
+  margin-top: -1.5rem;
+}
+.modal-container-error{
+  /* color: #685f13; */
+  background: #ffcc00;
+}
+.modal-container-info{
+  /* color: #164a5a; */
+  background: #2581d6;
+}
+.modal-container-success{
+  /* color: #165c26; */
+  background: #4BB543 ;
+
+}
+.modal-container-warning{
+  /* color: #6b1a22; */
+  background: #cc3300;
+
+}
+/* .modal-container h5{} */
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1rem;
+  background: transparent;
+  border-color: transparent;
+  color: var(--clr-red-dark);
+  cursor: pointer;
+  /* transition: var(--transition); */
+  border: 0;
+}
+.close-btn:hover {
+  color: var(--clr-red-light);
+  transform: scale(1.3);
+  border: 0;
+}
+
+
+
+
         .content{
     display: none;
   }
@@ -36,6 +177,13 @@ background-color: white;
 .error{
   color:red;
 }
+.box{
+   border: 1px solid #afb3b93d;
+   padding:5px;
+}
+.float-right{
+  padding-left: 10px;
+}
  
 
     </style>
@@ -61,9 +209,13 @@ background-color: white;
                                                 <label class="custom-control-label" for="room-sr<?php echo $room['room_id']; ?>a">
                                                     <img src="<?php echo base_url(); ?>/images/<?php echo $room['image']; ?>" alt="#" class="img-fluid">
                                                 </label>
-                                                <label class="text-primary" for="room<?php echo $room['room_id']; ?>"><?php echo $room['name']; ?></label> <br>
+                                                <div class="box">
+                                                <label class="text-primary" for="room<?php echo $room['room_id']; ?>" style="word-break: break-word" ><?php echo $room['name']; ?></label> <br>
                                                 <label for="room<?php echo $room['room_id']; ?>">Price: <?php echo $room['price']; ?></label> <br>
-                                                <label for="room<?php echo $room['room_id']; ?>">Description: <?php echo $room['description']; ?></label> 
+                                                <label for="room<?php echo $room['room_id']; ?>" style="word-break: break-word">Description: <?php echo $room['description']; ?></label> 
+
+                                                </div>
+                                               
 
                                             </div>
                                         </div>
@@ -85,10 +237,13 @@ background-color: white;
                                                 <label class="custom-control-label" for="food-sr<?php echo $food['food_id']; ?>a">
                                                     <img src="<?php echo base_url(); ?>/images/<?php echo $food['image']; ?>" alt="#" class="img-fluid">
                                                 </label>
-                                                <label class="text-primary" for="food<?php echo $food['food_id']; ?>"><?php echo $food['name']; ?></label> <br>
+                                                <div class="box">
+                                                <label class="text-primary" for="food<?php echo $food['food_id']; ?>" style="word-break: break-word" ><?php echo $food['name']; ?></label> <br>
                                                 <label for="food<?php echo $food['food_id']; ?>">Price: <?php echo $food['price']; ?></label> <br>
-                                                <label for="food<?php echo $food['food_id']; ?>">Description: <?php echo $food['description']; ?></label> 
+                                                <label for="food<?php echo $food['food_id']; ?>" style="word-break: break-word">Description: <?php echo $food['description']; ?></label> 
 
+                                                </div>
+                                               
                                             </div>
                                         </div>
                                   <?php }   ?>
@@ -99,23 +254,25 @@ background-color: white;
                 <hr width="90%">
               <div class="select-destinations"style="padding: 14px;" >
                 <h5>Select Destinations</h5>
-                    <div class="wrapper d-flex p-2" >
+                    <div class="wrapper col-lg-12 d-flex p-2" >
 
                               <div class=" dashboard active " >
 
                                   <div class="row">
                                       <?php foreach($destinations as $destination){ ?>
-                                              <div class="col-md-3">
+                                              <div class="col-lg-3">
                                                   <div class="custom-control custom-checkbox image-checkbox">
                                                       <input type="checkbox" class="custom-control-input get_destination" data-id="destination-<?php echo $destination['destination_id']; ?>" name="check_destination[]" value="<?php echo $destination['price']; ?>" id="destination-sr<?php echo $destination['destination_id']; ?>a">
                                                     
                                                       <label class="custom-control-label" for="destination-sr<?php echo $destination['destination_id']; ?>a">
                                                           <img src="<?php echo base_url(); ?>/images/<?php echo $destination['image']; ?>" alt="#" class="img-fluid">
                                                       </label>
-                                                      <label class="text-primary" for="destination<?php echo $destination['destination_id']; ?>"><?php echo $destination['name']; ?></label> <br>
+                                                      <div class="box">
+                                                      <label class="text-primary" for="destination<?php echo $destination['destination_id']; ?>" style="word-break: break-word"><?php echo $destination['name']; ?></label> <br>
                                                       <label for="destination<?php echo $destination['destination_id']; ?>">Price: <?php echo $destination['price']; ?></label> <br>
-                                                      <label for="destination<?php echo $destination['destination_id']; ?>">Description: <?php echo $destination['description']; ?></label> 
-
+                                                      <label for="destination<?php echo $destination['destination_id']; ?>" style="word-break: break-word">Description: <?php echo $destination['description']; ?></label> 
+                                                      </div>
+                                                      
                                                   </div>
                                               </div>
                                               <?php }   ?>
@@ -153,20 +310,34 @@ background-color: white;
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
                   </div>
                     <form method="post" name="order-your-hotel-booking" id="order-your-hotel-booking" enctype="multipart/form-data">
+                    
                       <div class="card-body">
                         <div class="form-group">
                           <label for="full_name">Full Name</label>
-                          <input type="text" class="form-control  form-control-border" id="full_name" name="full_name" placeholder="Enter Your Full Name" required>
+                          
+                          <input type="text" class="form-control  form-control-border" value="<?php print_r($user['first_name']); ?> <?php print_r($user['last_name']); ?>" id="full_name" name="full_name" placeholder="Enter Your Full Name" required>
                         </div>
                         
                         <div class="form-group">
                               <label name="gender">Gender</label>
+                              <?php if( ($user['gender']) == 'Male'): ?>
                               <select id="gender" class="form-control">
-                                <option value="male" > Male</option>
+                                <option value="male" selected> Male</option>
                                 <option value="female"> Female</option>
                              
                               </select>
+                              <?php else: ?>
+                                <select id="gender" class="form-control">
+                                <option value="male" > Male</option>
+                                <option value="female" selected> Female</option>
+                             
+                              </select>
+                              <?php endif; ?>
                             </div>
+                            <div class="form-group">
+                          <label for="email_address">Email Address</label>
+                          <input type="email" class="form-control  form-control-border" id="email_address" value="<?php print_r($user['email']); ?>" name="email_address" placeholder="Enter Email Address" required>
+                        </div>
                         
                         <div class="form-group">
                           <label for="current_address">Current Address</label>
@@ -180,7 +351,7 @@ background-color: white;
                          <div class="form-group">
                   <label>Date:</label>
                     <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                        <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate"id="booking_date" name="booking_date" placeholder="Enter Booking Date" required/>
+                        <input type="text" class="form-control datetimepicker-input"  data-target="#reservationdate"id="booking_date" value="<?php print_r($user['created']); ?>"  name="booking_date" placeholder="Enter Booking Date" required/>
                         <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
@@ -206,7 +377,7 @@ background-color: white;
                 </div>
                        <div class="form-group">
                           <label for="mobile_number">Mobile Number</label>
-                          <input type="tel" class="form-control  " id="mobile_number" name="mobile_number"   placeholder="Mobile Number" required>
+                          <input type="tel" class="form-control  " id="mobile_number" name="mobile_number" value="<?php print_r($user['phone']); ?>"  placeholder="Mobile Number" required>
                         </div>
                         <div class="form-group" id="total_amount">
                           <label >Total Amount : </label>
@@ -214,7 +385,7 @@ background-color: white;
                         </div>
                       </div>
                   <div class="card-footer">
-                      <!-- <button type="button" id="previous-to-hotel-info" data-id="hotel-info-form" class="allnext btn btn-primary">&laquo; Previous</button> -->
+                      <button type="button" id="previous-to-hotel-info" data-id="hotel-info-form" class="allnext btn btn-primary"> Previous</button>
 
                         <button type="button" data-id="payment-amount-gateway"  id="submit-hotel-booking" class="allnext btn btn-primary ">Next</button>
                       </div>
@@ -264,7 +435,7 @@ background-color: white;
                         <h6>Select Payment Gateway</h6>
                         <input class="payment-gateway" type="radio" name="payment-gateway" id="payment-gateway" checked>
                         <label class="payment-gateway" for="payment-gateway">
-                        Pay Through Esewa
+                        Pay Through Khalti
                     </label>
                     </div>        
                 </div>           
@@ -275,7 +446,7 @@ background-color: white;
             <div class="row no-print">
                 <div class="col-12" style="margin-bottom:16px ;">
                   <!-- <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a> -->
-                  <!-- <button type="button" id="previous-to-hotel-booking" data-id="hotel-booking-details" class="allnext float-left btn btn-primary">&laquo; Previous</button> -->
+                  <button type="button" id="previous-to-hotel-booking" data-id="hotel-booking-details" class="allnext float-left btn btn-primary">&laquo; Previous</button>
 
                   <button type="button"data-id="confirm-payment-selection"  id="payment-amount-next" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
                     Payment
@@ -317,7 +488,7 @@ background-color: white;
                     <tr>
                       <td>Pay Through</td>
                       
-                      <td><span class="">Esewa</span></td>
+                      <td><span class="">Khalti</span></td>
                     </tr>
                     <tr>
                       <td>Charge</td>
@@ -344,7 +515,7 @@ background-color: white;
               </form>
                 
                   <!-- <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a> -->
-                  <!-- <button type="button" id="previous-to-payment-amount" data-id="payment-amount-gateway" class="allnext float-left btn btn-primary">&laquo; Previous</button> -->
+                  <button type="button" id="previous-to-payment-amount" data-id="payment-amount-gateway" class="allnext float-left btn btn-primary">&laquo; Previous</button>
 
                   <button type="button"data-id="invoice-section"  id="proceed-to-pay" class="btn btn-primary float-right"> Proceed to Pay
                   </button>
@@ -355,6 +526,15 @@ background-color: white;
 
 
     <section class="content" id="invoice-section">
+
+    <div class="modal-overlay">
+      <div class="modal-container">
+        <h4>Title</h4>
+        <p>This is a body</p>
+        <button class="close-btn"><i class="fas fa-times"></i></button>
+      </div>
+    </div>
+
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
@@ -483,14 +663,25 @@ background-color: white;
              <div class="row no-print">
                 <div class="col-12">
                   <!-- <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"> Print</a> -->
+                  <button type="button" id="previous-to-confirm-payment-selection" data-id="confirm-payment-selection" class="allnext float-left btn btn-primary">&laquo; Previous</button>
+                 
+                  <a href="<?php echo base_url('users/customer_home/') ?>" class="btn btn-danger float-right" role="button" aria-disabled="true">Exit</a>
+
+                 <!-- <button type="button" id="" onclick="" class="btn btn-danger float-right" style="padding-left:5px;"> 
+                    
+                    </button> -->
+                
+                 
                   <button type="button" id="print-invoice" class="btn btn-success float-right"> <i class="fas fa-print"></i>Print
                     Payment
                   </button>
+                 
                   <!-- <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
                     <i class="fas fa-download"></i> Generate PDF
                   </button> -->
                 </div>
               </div>
+              
             <!-- /.invoice -->
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -501,13 +692,17 @@ background-color: white;
 </div>
 
         <script type="text/javascript">
+  
+ 
+
+
   /////////////////////////////////////////////DATE RANGE PICKER //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()
 
-    //Initialize Select2 Elements
+    //Initialize Select2 Elements€€
     $('.select2bs4').select2({
       theme: 'bootstrap4'
     })
@@ -653,10 +848,10 @@ $(function () {
 
                   //  console.log((foodTotal));
                      allTotal = [sessionStorage.getItem("roomTotal"),sessionStorage.getItem("foodTotal"),sessionStorage.getItem("destinationTotal")]
-                     console.log((allTotal));
+                    //  console.log((allTotal));
                      sumTotal = sum(allTotal);
                      sessionStorage.setItem("sumTotal", sumTotal);
-                    console.log(sumTotal);
+                    // console.log(sumTotal);
 
                   //  console.log(destinationTotal);
       
@@ -733,6 +928,10 @@ $(function () {
                            
                             
                         },
+                        email_address:{
+                          required:true,
+                          email:true,
+                        },
                         current_address:{
                             required:true,
                             
@@ -766,6 +965,10 @@ $(function () {
                             required:"Please select your gender",
                             
                             
+                        },
+                        email_address:{
+                          required:"Please enter Email address",
+                          email:"Please enter valid email address",
                         },
                         current_address:{
                             required:"Please Enter your current address",
@@ -805,6 +1008,7 @@ $(function () {
                  click_next(e);
               }
             });
+           
 
 
             function save_booking(e){
@@ -813,6 +1017,7 @@ $(function () {
                             
                             let fullName = $('#full_name').val();
                             let gender = $('#gender').val();
+                            let email = $('#email_address').val();
                             let currentAddress = $('#current_address').val();
                             let bookingDate = $('#booking_date').val();
                             let time = $('#time').val();
@@ -840,6 +1045,7 @@ $(function () {
                                   hotelId:hotelId,
                                   fullName:fullName,
                                   gender:gender,
+                                  email:email,
                                   currentAddress:currentAddress,
                                   bookingDate:bookingDate,
                                   time:time,
@@ -889,8 +1095,8 @@ $(function () {
                                       success: function(result){
                                         let dataResult = JSON.parse(result);
                                         book = ((dataResult.data)[0]);
-                                        console.log('fromhere')
-                                      console.log(book);
+                                        // console.log('fromhere')
+                                      // console.log(book);
                                         showPaymentDetails(book);//Diplay another section with dynamic form data
                                         confirmPaymentSelection(book);
                                         invoiceSection(book);
@@ -928,7 +1134,7 @@ $(function () {
                                                       <li class="list-group-item">OwnerName: ${booking['full_name']}</li>
                                                       <li class="list-group-item">Gender: ${booking['gender']}</li>
                                                       <li class="list-group-item">Mobile Number: ${booking['mobile']}</li>
-                                                      <li class="list-group-item">Email: Kristh@gmail.com</li>
+                                                      <li class="list-group-item">Email: ${booking['email']}</li>
                                                       <li class="list-group-item">Appointment Date:${booking['booking_date']}</li>
                                                   </ul>
                                               </div>
@@ -943,7 +1149,7 @@ $(function () {
                                                   <h6>Select Payment Gateway</h6>
                                                   <input class="payment-gateway" type="radio" name="payment-gateway" id="payment-gateway" checked>
                                                   <label class="payment-gateway" for="payment-gateway">
-                                                  Pay Through Esewa
+                                                  Pay Through Khalti
                                               </label>
                                               </div>        
                                           </div>           
@@ -958,7 +1164,7 @@ $(function () {
                                       let amount = booking['total_amount']
                                       let ownerFee = 10% amount;
                                       let currency = 'NPR';
-                                      let payThrough = 'Esewa';
+                                      let payThrough = 'Khalti';
                                       let charge = 100;
                                       let total =  sum([ownerFee,charge,amount])
                                       const confirmPayment = document.querySelector('.confirm-payment');
@@ -987,7 +1193,7 @@ $(function () {
                                             <tr>
                                               <td>Pay Through</td>
                                               
-                                              <td><span class="">Esewa</span></td>
+                                              <td><span class="">Khalti</span></td>
                                             </tr>
                                             <tr>
                                               <td>Charge</td>
@@ -1024,15 +1230,22 @@ $(function () {
                                 let yyyy = today.getFullYear();
 
                                 today = mm + '/' + dd + '/' + yyyy;
-                            
+                              <?php foreach($hotel_info as $hotel){?>
+                                  let hotelName = "<?php print_r($hotel['name']); ?>";
+                                  let hotelEmail = "<?php print_r($hotel['email']); ?>";
+                                  let hotelAddress = "<?php print_r($hotel['address']); ?>";
+                                  let hotelPhone = "<?php print_r($hotel['phone']); ?>";
+                                
+                                <?php }?>
+                                // console.log(hotelName);
                               let amount = booking['total_amount']
                               let ownerFee = 10% amount;
                               let currency = 'NPR';
-                              let payThrough = 'Esewa';
+                              let payThrough = 'Khalti';
                               let charge = 100;
                               let total =  sum([ownerFee,charge,amount])
                               const invoicePrint = document.querySelector('.invoice-print');
-                              console.log(invoicePrint);
+                              // console.log(invoicePrint);
                               invoicePrint.innerHTML = `
                               
                               <!-- title row -->
@@ -1050,11 +1263,11 @@ $(function () {
                                 <div class="col-sm-4 invoice-col">
                                   From
                                   <address>
-                                    <strong>Admin, Inc.</strong><br>
-                                    Kathmandu , Nepal<br>
+                                    <strong>${hotelName}.</strong><br>
+                                    ${hotelAddress}.<br>
                                   
-                                    Phone: (804) 123-5432<br>
-                                    Email: admin@admin.com
+                                    Phone: ${hotelPhone}<br>
+                                    Email: ${hotelEmail}
                                   </address>
                                 </div>
                                 <!-- /.col -->
@@ -1183,19 +1396,22 @@ $(function () {
               if($("#terms-and-condition-form").valid()){
             
                 click_next(e);
+                customAlert();
               }
             });
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////                                    
 
             $('#print-invoice').on('click',(e)=>{
+              // customAlert();
+
                  // function printSection(el){
                   let getFullContent = document.body.innerHTML;
                 let printsection = document.getElementById('invoice-print').innerHTML;
                 document.body.innerHTML = printsection;
                 window.print();
                 document.body.innerHTML = getFullContent;
-                alert('Hotel Booked Successfully');
-                window.location.replace("http://localhost/hm/users/customer_home/");
+                customAlert();
+                // window.location.replace("http://localhost/hm/users/customer_home/");
             // }
              
             // click_next(e);
@@ -1222,11 +1438,30 @@ $(function () {
 
                           
 ////////////////////////////////////////////// Function to change the section when we click next////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////                                    
-          
+          ////////////////////////////////All Prev Button/////////////////////////////////////////////////////////
+          $('#previous-to-hotel-info').on('click',(e)=>{
+                // confirm_payment_section(e);
+                click_next(e);
+            });
+            $('#previous-to-payment-amount').on('click',(e)=>{
+                // confirm_payment_section(e);
+                click_next(e);
+            });
+            $('#previous-to-hotel-booking').on('click',(e)=>{
+                // confirm_payment_section(e);
+                click_next(e);
+            });
+            $('#previous-to-confirm-payment-selection').on('click',(e)=>{
+                // confirm_payment_section(e);
+                click_next(e);
+            });
+             
+            
+          /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
                     function click_next(e){
                                 const id = e.target.dataset.id;
-                            console.log(id);
+                            // console.log(id);
                             
 
                       
@@ -1234,14 +1469,84 @@ $(function () {
                           content.classList.remove("active");
                         });
                         const element = document.getElementById(id);
-                            console.log(element);
+                            // console.log(element);
                       
                         element.classList.add("active");
 
                             }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////                                    
 
+
+
  });
+
+ //pop up
+
+
 
 
         </script>
+        <script>
+                  
+                 
+        function  customAlert(){
+
+            const modalOverlay = document.querySelector(".modal-overlay");
+            const modalContainer = document.querySelector(".modal-container");
+            siliconAlert("success","Hotel Booked SuccessFully",".",100000000000000);
+
+                function siliconAlert(type, body, title, time){
+                  //replace the div with its data
+                  modalOverlay.innerHTML =`
+                                <div class="modal-container">
+                                <h4>${title}</h4>
+                                <p>${body}</p>
+                                <button class="close-btn"><i class="fas fa-times"></i></button>
+                              </div>
+                                `;
+                      popUpBody(type);// pop up div         
+                      setTime(time);//Dissaper popup
+                      closeButton();// Remove popUp manually
+                }
+              
+                  function popUpBody( type){
+                    const modalContainer = document.querySelector(".modal-container");
+                    modalOverlay.classList.add("open-modal");
+                    modalContainer.classList.add(`modal-container-${type}`);
+                  
+              }
+              function setTime(time){
+                setTimeout(function(){
+                  // modalOverlay.textContent = "";
+                  modalOverlay.classList.remove("open-modal");
+              }, time);
+              }
+              function closeButton(){
+                const closeBtn = document.querySelector(".close-btn");
+                
+                closeBtn.addEventListener("click", function(){
+                    modalOverlay.classList.remove("open-modal");
+                }); 
+              }
+
+                function popUpColor(type){
+                  modalContainer.classList.add(`modal-container-${type}`);
+                }
+
+                 } 
+
+
+                 $(document).on('click', '#hotel-booked-success', function(){
+                  window.location.replace("http://localhost/hm/users/customer_home/");
+
+                 });
+
+               
+
+
+
+  
+        
+
+
+        </script> 

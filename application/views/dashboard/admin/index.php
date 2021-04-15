@@ -27,7 +27,7 @@
    border:1px solid #ffff;
     /* cursor: pointer; */
     font-size: 2em;
-    color: #ebcf34;
+    color: #ffc107;
  }
  .rating-item::before{
    content: "\2605";
@@ -207,7 +207,7 @@
                             <div class="custom-file">
                             
                               <label class="form-label" for="customFile"></label>
-                                <input type="file" class="form-control" name="upload_image" id="upload_image" value="" accept="image/*" />
+                                <input type="file" value="null" class="form-control" name="upload_image" id="upload_image" value="" accept="image/*" />
                                 <span id="uploaded_image"></span><span id="uploaded_image"></span>
                               </div>
                             <div class="input-group-append">
@@ -229,6 +229,10 @@
                         <button type="button" id="submit-hotel" class="btn btn-success">Save Details</button>
                       </div>
                     </form>
+
+                   
+
+
                   </div>
             </div>
             </div>
@@ -240,7 +244,7 @@
 
           
 
-            <div class="col-12 col-md-12 col-lg-12 order-2 order-md-1 " style=";">
+            <div class="col-12 col-md-12 col-lg-12 order-2 order-md-1 " >
             <div class="card card-primary">
                     <div class="card-header">
                       <h3 class="card-title">Add Foods Destinations and Rooms</h3>
@@ -255,7 +259,7 @@
                      
                           <div class="form-group" style="background-color: #f4f6f999;">
                           <div style="margin:10px;">
-                          <label name="select_hotel"><h5><strong> Hotels</strong> </h5></label>
+                          <label name="select_hotel"><h5><strong> Choose Hotel</strong> </h5></label>
                                 <select id="select_hotel" class="form-control" required>
                                 <?php foreach($hotels as $hotel){ ?>
                                 <option value="<?php echo $hotel['hotel_id']?>" > <?php echo $hotel['name']?></option>
@@ -270,6 +274,29 @@
                           <label for="hotel_name">Hotel Category</label>
                           <input type="text" class="form-control  form-control-border" id="add-hotel_category" name="hotel_category" placeholder="Enter Hotel Category">
                         </div> -->
+                        <form method="post" name="add-hotel-image-form" id="add-hotel-image-form" enctype="multipart/form-data">
+                        <div class="form-group" style="background-color: #f4f6f999;">
+                        <div style="margin:10px;">
+                        <label for="upload_hotels_image" ><h5><strong> Add Hotel Images</strong> </h5></label>
+                              <div class="form-group">
+                                  <div class="custom-file">
+                                    <label class="form-label" for="customFile"></label>
+                                    <input type="file" class="form-control" name="upload_hotels_image" id="upload_hotels_image" value="" accept="image/*" required />
+                                    <span id="uploaded_hotels_image"></span><span id="uploaded_hotels_image"></span>
+                                  </div>
+                              </div>
+
+                                <!-- <div class="input-group">
+                                  <button type="button" id="add-hotel_image" class="btn btn-success">Add Hotel Image</button>
+                                </div>     -->
+                                <br>                      
+                              <div class="form-group row " id="hotel_gallery">                           
+                              </div>
+                        </div>
+                         
+
+                          </div>
+                        </form>
 
                         <form method="post" name="add-food-category-form" id="add-food-category-form" enctype="multipart/form-data">
                         <div class="form-group" style="background-color: #f4f6f999;">
@@ -686,19 +713,19 @@
                               <div class="card-body">
                               <div class="d-flex">
                                     <div class="p-2 font-weight-bold">Booked By</div>
-                                    <div class="ml-auto p-2 font-weight-bold">NRs. <?php echo $booking['total_amount']; ?></div>
+                                    <div class="ml-auto p-2 font-weight-bold booking-total">NRs. <?php echo $booking['total_amount']; ?></div>
                               </div>
                                 
-                                <div class="card-text"><i class="fas fa-user"></i>&nbsp;&nbsp;&nbsp; <?php echo $booking['full_name']; ?></div>
+                                <div class="card-text booking-name"><i class="fas fa-user "></i>&nbsp;&nbsp;&nbsp; <?php echo $booking['full_name']; ?></div>
                                 <!-- <div class="card-text"><i class="fas fa-hotel"></i> <?php echo $booking['hotel_id']; ?></div> -->
-                                <div class="card-text"><i class="fas fa-address-card"></i>&nbsp;&nbsp; <?php echo $booking['current_address']; ?></div>
-                                <div class="card-text"><i class="fas fa-calendar-alt"></i>&nbsp;&nbsp;&nbsp; <?php echo $booking['booking_date']; ?></div>
-                                <div class="card-text"><i class="fas fa-clock"></i> &nbsp;&nbsp;<?php echo $booking['time']; ?></div>
+                                <div class="card-text booking-address"><i class="fas fa-address-card "></i>&nbsp;&nbsp; <?php echo $booking['current_address']; ?></div>
+                                <div class="card-text booking-date"><i class="fas fa-calendar-alt "></i>&nbsp;&nbsp;&nbsp; <?php echo $booking['booking_date']; ?></div>
+                                <div class="card-text booking-time"><i class="fas fa-clock"></i> &nbsp;&nbsp;<?php echo $booking['time']; ?></div>
                                 <br>
                                 <div class="review-number">
-                                  <div class="d-inline p-3  "><i class="fas fa-apple-alt"></i> <?php echo $booking['food_id']; ?></div>
-                                  <div class="d-inline p-3  "><i class="fa fa-bed" aria-hidden="true"></i> <?php echo $booking['room_id']; ?> </div>  
-                                  <div class="d-inline p-3  "><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo $booking['destination_id']; ?></div>    
+                                  <div class="d-inline p-3 booking-food "><i class="fas fa-apple-alt"></i> <?php echo $booking['food_id']; ?></div>
+                                  <div class="d-inline p-3  booking-room "><i class="fa fa-bed" aria-hidden="true"></i> <?php echo $booking['room_id']; ?> </div>  
+                                  <div class="d-inline p-3  booking-destination"><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo $booking['destination_id']; ?></div>    
                                 </div> 
                                 <br>
                                 <?php if($booking['status'] == '1'): ?>
@@ -812,6 +839,7 @@
            let completedcardAddress = viewAllCompletedBooking.querySelectorAll('.booking-address');
            let completedcardDate = viewAllCompletedBooking.querySelectorAll('.booking-date');
            let completedcardTime = viewAllCompletedBooking.querySelectorAll('.booking-time');
+           console.log(completedcardDate);
            let completedcardFood = viewAllCompletedBooking.querySelectorAll('.booking-food');
            let completedcardRoom = viewAllCompletedBooking.querySelectorAll('.booking-room');
            let completedcardDestination = viewAllCompletedBooking.querySelectorAll('.booking-destination');
@@ -824,6 +852,7 @@
                   completedBookingAddress = completedcardAddress[i];
                   completedBookingDate = completedcardDate[i];
                   completedBookingTime = completedcardTime[i];
+                  
                   completedBookingFood = completedcardFood[i];
                   completedBookingRoom = completedcardRoom[i];
                   completedBookingDestination = completedcardDestination[i];
@@ -1009,7 +1038,7 @@ function view_all_staff_div(){
                             // console.log(staff['employee_id']);
                           allHotelStaffBody.innerHTML += ` 
                         
-                        <div class="col-lg-3 col-md-3 col-6 all-staff " id="staff-${staff['employee_id']}" >
+                        <div class="col-lg-4 col-md-4 col-6 all-staff " id="staff-${staff['employee_id']}" >
                         <div class="card" style="position: relative;" >
                         <div class="d-flex flex-row-reverse">
                         <div class="p-2"">
@@ -1337,6 +1366,23 @@ function status_completed($booking_id){
         
 
             });
+            $(document).on('change', '#upload_hotels_image', function(){
+              
+                
+              upload_image(this,'hotel/image_upload', '#uploaded_hotels_image',);
+
+              image_preview(this,'#hotel_gallery','hotel/new_image_upload','hotels','NULL','NULL','NULL');
+              
+                document.getElementById("add-hotel-category-form").reset();
+             
+                // image_preview(this,'#room_gallery','hotel/new_image_upload','rooms',roomPrice,roomDescription,roomName);
+                // document.getElementById("add-room-category-form").reset();
+
+              
+            
+    
+                });
+                
             $(document).on('click', '#add-room', function(){
               const roomImage = document.getElementById('upload_rooms_image');
               
@@ -1455,7 +1501,11 @@ function status_completed($booking_id){
                               }else if(type == 'rooms'){
                                 $(placeToInsertImagePreview).append('<div class="d-flex flex-row"><div class="p-2"><h5 style="color:green;">Room Uploaded</h5><img src="<?php echo base_url() ?>'+src+'" width="200px;" height="200px"><div></div>');
 
-                              }else{
+                              }else if(type == 'hotels'){
+                                $(placeToInsertImagePreview).append('<div class="d-flex flex-row"><div class="p-2"><h5 style="color:green;">Hotel Uploaded</h5><img src="<?php echo base_url() ?>'+src+'" width="200px;" height="200px"><div></div>');
+
+                              }
+                              else{
                                 $(placeToInsertImagePreview).append('<div class="d-flex flex-row"><div class="p-2"><h5 style="color:green;">Destination Uploaded</h5><img src="<?php echo base_url() ?>'+src+'" width="200px;" height="200px"><div></div>');
 
                               }
@@ -1466,7 +1516,7 @@ function status_completed($booking_id){
                         });
 
              
-
+                        
     
     }
   

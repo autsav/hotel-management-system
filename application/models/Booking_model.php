@@ -6,7 +6,7 @@ class Booking_model extends CI_Model
         $this->table = 'booking'; 
     } 
 
-	function saverecords($full_name,$gender,$current_address,$booking_date,$time,$mobile,$total_amount, $room_id,$destination_id,$food_id,$customer_id,$hotel_id)
+	function saverecords($full_name,$gender,$email,$current_address,$booking_date,$time,$mobile,$total_amount, $room_id,$destination_id,$food_id,$customer_id,$hotel_id)
 	{     
             // print_r($hotel_id);
             // exit();
@@ -14,8 +14,8 @@ class Booking_model extends CI_Model
         
        
             $status = 0;
-		$query="INSERT INTO `booking`(`full_name`,`gender`,`status`,`current_address`,`booking_date`, `time`, `mobile`,`total_amount`,`room_id`,`destination_id`,`food_id`,`customer_id`,`hotel_id`) 
-		                    VALUES ('$full_name','$gender','$status','$current_address','$booking_date','$time','$mobile' ,'$total_amount','$room_id','$destination_id','$food_id','$customer_id','$hotel_id')";
+		$query="INSERT INTO `booking`(`full_name`,`gender`,`email`,`status`,`current_address`,`booking_date`, `time`, `mobile`,`total_amount`,`room_id`,`destination_id`,`food_id`,`customer_id`,`hotel_id`) 
+		                    VALUES ('$full_name','$gender','$email','$status','$current_address','$booking_date','$time','$mobile' ,'$total_amount','$room_id','$destination_id','$food_id','$customer_id','$hotel_id')";
       
 		$this->db->query($query);
      
@@ -302,5 +302,46 @@ class Booking_model extends CI_Model
        
         return $result;
     }
+    public function loyalty_point(){
+        $user_id = $this->session->userdata('userId') ;
+        
+        $today_date = date("Y-m-d");
+       $status = 1;
+        
+        //Select the hotel_id///
+        $this->db->select('hotel_id'); 
+        $this->db->from($this->table); 
+        $this->db->where('customer_id', $user_id);
+        // $this->db->where('booking_date <=', $today_date);
+    
+        $id = $this->db->get()->result_array(); 
+        
+        if($id){
+            $hotel_id =  ($id[0]['hotel_id']);
+       
+            $this->db->select('hotel.image,booking.hotel_id,booking.full_name,booking.mobile,booking.current_address,booking.food_id,booking.destination_id,booking.room_id,booking.total_amount'); 
+            $this->db->from('hotel');
+            $this->db->join('booking', 'booking.hotel_id = hotel.hotel_id');
+            $this->db->where('booking.hotel_id', $hotel_id);
+            $this->db->where('booking.customer_id', $user_id);
+            $this->db->where('booking.status', $status);
+    
+    
+    
+    
+      
+            $query = $this->db->get(); 
+            $result =$query->num_rows();
+            return $result * 20;
+
+        }else{
+            return 0;
+        }
+      
+      
+      
+       
+    }
+
 
 }

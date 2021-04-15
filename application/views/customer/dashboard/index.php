@@ -35,7 +35,7 @@
    border:1px solid #ffff;
     cursor: pointer;
     font-size: 2em;
-    color: yellow;
+    color: #ffc107;
  }
  .rating-item::before{
    content: "\2605";
@@ -102,8 +102,10 @@
                     <div class="inner">
                     <?php if($no_review_profile == '0'): ?>
                       <h3>0</h3>
+                      <?php else:?>
+                        <h3><?php echo $no_review_profile; ?></h3>
                       <?php endif; ?>
-                      <h3><?php echo $no_review_profile; ?></h3>
+                      
                       <p>Hotel Profiles</p>
                     </div>
                     <div class="icon">
@@ -114,7 +116,7 @@
                 <div class="col-lg-3 col-6" id="dashboard-booking">
                   <div class="small-box bg-danger">
                     <div class="inner">
-                      <h3>31</h3>
+                      <h3>0</h3>
 
                       <p>Bookings</p>
                     </div>
@@ -463,6 +465,19 @@
                   success: function(result){
                     let dataResult = JSON.parse(result);
                     bookings = ((dataResult.data));
+                    if(bookings == ''){
+                      dashboardBooking.innerHTML = `
+                    <div class="small-box bg-danger">
+                    <div class="inner">
+                      <h3>0</h3>
+
+                      <p>Bookings</p>
+                    </div>
+                    <div class="icon">
+                    <i class="fas fa-bookmark"></i>
+                    </div>
+                  </div>`;
+                    }
                     dashboardBooking.innerHTML = `
                     <div class="small-box bg-danger">
                     <div class="inner">
@@ -581,7 +596,7 @@
 
 
                                                     <div class="card-text"><h5 class="card-text">${hotel['name']}</h5></div>
-                                                    <div class="card-text"><a href="">${hotel['email']}</a></div>
+                                                    <div class="card-text">${hotel['email']}</div>
                                                     <div class="card-text">${hotel['address']}</div>
                                                     
                                                   
@@ -679,7 +694,6 @@
                 let comment = $('#comment').val();
                
                 if(!comment == '' && !rate == '' ){
-                  aler('hree');
                 $('#comment').val('') ;
                               $.ajax({
                                   url:"<?php echo base_url(); ?>/hotel/review_data_save",

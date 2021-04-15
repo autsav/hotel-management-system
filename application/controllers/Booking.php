@@ -37,6 +37,7 @@ class Booking extends CI_Controller
 		{   
 			$full_name=$this->input->post('fullName');
             $gender=$this->input->post('gender');
+            $email=$this->input->post('email');
 			$current_address=$this->input->post('currentAddress');
             $booking_date=$this->input->post('bookingDate');
             $time=$this->input->post('time');
@@ -49,7 +50,7 @@ class Booking extends CI_Controller
             $customer_id =$this->session->userdata('userId');
             $hotel_id = $this->input->post('hotelId');
             
-		    $recent_booking_id=	$this->Booking_model->saverecords($full_name, $gender,$current_address,$booking_date,$time,
+		    $recent_booking_id=	$this->Booking_model->saverecords($full_name, $gender,$email,$current_address,$booking_date,$time,
             $mobile,$total_amount, $room_id,$destination_id,$food_id,$customer_id,$hotel_id);	
 			echo json_encode(array(
 				"statusCode"=>200,
@@ -103,9 +104,9 @@ class Booking extends CI_Controller
 
         }
 
-
-      
-     
+    }
+    public function loyalty_point(){
+        $data= $this->Booking_model->loyalty_point();
 
     }
 
