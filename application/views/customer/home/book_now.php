@@ -196,6 +196,45 @@ background-color: white;
        <div id="select-success">
                   </div>
               <div style="background-color: white; border-radius:10px;">
+              <div class="select-transportation"style="padding: 14px;" >
+
+
+                      <div class="wrapper col-lg-12 d-flex p-2 transportation" id="transportation">
+                      <h5>Select Transportation</h5>
+                      <?php foreach($hotel_info as $hotel){?>
+                        <div class="form-check" style="margin-right:10px; margin-left:10px;">
+                            <input class="form-check-input" type="radio" value="0" name="flexRadioDefault" id="flexRadioDefault3" checked>
+                            <label class="form-check-label" for="flexRadioDefault3">
+                            None
+                            </label>
+                          </div>
+                        
+                          <?php if($hotel['car']): ?>
+                        <div class="form-check" style="margin-right:10px; margin-left:10px;">
+
+                            <input class="form-check-input" type="radio" value="<?php print_r($hotel['car']); ?>" name="flexRadioDefault" id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1">
+
+                            <i class="fas fa-car"></i> Car (<?php print_r($hotel['car']); ?>)
+
+                            </label>
+                          </div>
+                          <?php endif; ?>
+                          <?php if($hotel['bus']): ?>
+
+                          <div class="form-check" style="margin-right:10px; margin-left:10px;">
+                            <input class="form-check-input" type="radio" value="<?php print_r($hotel['bus']); ?>" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                            <label class="form-check-label" for="flexRadioDefault2">
+
+                            <i class="fas fa-bus"></i> Bus (<?php print_r($hotel['bus']); ?>)
+                            </label>
+                          </div>
+                          <?php endif;  ?>
+                           <?php }?>
+                             </div>
+
+                      </div>
+
               <div class="select-rooms" style="padding: 14px;" >
                       <h5>Select Rooms</h5>
                           <div class="wrapper d-flex p-2" >
@@ -204,7 +243,7 @@ background-color: white;
                                 <?php foreach($rooms as $room){ ?>
                                         <div class="col-md-3">
                                             <div class="custom-control custom-checkbox image-checkbox">
-                                                <input type="checkbox" class="custom-control-input get_room" data-id="room-<?php echo $room['room_id']; ?>" name="check_room[]" value="<?php echo $room['price']; ?>" id="room-sr<?php echo $room['room_id']; ?>a">
+                                                <input type="checkbox" class="custom-control-input get_room" data-name="<?php echo $room['name']; ?>" data-id="<?php echo $room['room_id']; ?>" name="check_room[]" value="<?php echo $room['price']; ?>" id="room-sr<?php echo $room['room_id']; ?>a">
                                               
                                                 <label class="custom-control-label" for="room-sr<?php echo $room['room_id']; ?>a">
                                                     <img src="<?php echo base_url(); ?>/images/<?php echo $room['image']; ?>" alt="#" class="img-fluid">
@@ -233,7 +272,7 @@ background-color: white;
                                 <?php foreach($foods as $food){ ?>
                                         <div class="col-md-3">
                                             <div class="custom-control custom-checkbox image-checkbox">
-                                                <input type="checkbox" class="custom-control-input get_food" data-id="food-<?php echo $food['food_id']; ?>" name="check_food[]" value="<?php echo $food['price']; ?>" id="food-sr<?php echo $food['food_id']; ?>a">                                             
+                                                <input type="checkbox" class="custom-control-input get_food" data-name="<?php echo $food['name']; ?>" data-id="<?php echo $food['food_id']; ?>" name="check_food[]" value="<?php echo $food['price']; ?>" id="food-sr<?php echo $food['food_id']; ?>a">                                             
                                                 <label class="custom-control-label" for="food-sr<?php echo $food['food_id']; ?>a">
                                                     <img src="<?php echo base_url(); ?>/images/<?php echo $food['image']; ?>" alt="#" class="img-fluid">
                                                 </label>
@@ -262,7 +301,7 @@ background-color: white;
                                       <?php foreach($destinations as $destination){ ?>
                                               <div class="col-lg-3">
                                                   <div class="custom-control custom-checkbox image-checkbox">
-                                                      <input type="checkbox" class="custom-control-input get_destination" data-id="destination-<?php echo $destination['destination_id']; ?>" name="check_destination[]" value="<?php echo $destination['price']; ?>" id="destination-sr<?php echo $destination['destination_id']; ?>a">
+                                                      <input type="checkbox" class="custom-control-input get_destination" data-name="<?php echo $destination['name']; ?>"  data-id="<?php echo $destination['destination_id']; ?>" name="check_destination[]" value="<?php echo $destination['price']; ?>" id="destination-sr<?php echo $destination['destination_id']; ?>a">
                                                     
                                                       <label class="custom-control-label" for="destination-sr<?php echo $destination['destination_id']; ?>a">
                                                           <img src="<?php echo base_url(); ?>/images/<?php echo $destination['image']; ?>" alt="#" class="img-fluid">
@@ -280,6 +319,9 @@ background-color: white;
                                 </div>
                       </div>
                 </div>
+               
+
+          
 
 
               </div>
@@ -375,6 +417,8 @@ background-color: white;
                                 </div>
                             </div>
                 </div>
+             
+                      
                        <div class="form-group">
                           <label for="mobile_number">Mobile Number</label>
                           <input type="tel" class="form-control  " id="mobile_number" name="mobile_number" value="<?php print_r($user['phone']); ?>"  placeholder="Mobile Number" required>
@@ -776,27 +820,99 @@ $(function () {
             // $('#input_starttime').pickatime({});
             const contents = document.querySelectorAll(".content"); 
             const allNext = document.querySelectorAll(".allnext");
-            const getRooms = document.querySelector(".get_room");
+            const getRooms = document.querySelectorAll(".get_room");
+
+
+          
+              const transportCheck = document.getElementsByName("flexRadioDefault");
+
+              for(let i = 0; i < transportCheck.length; i++) {
+                      (function(index) {
+                        transportCheck[index].addEventListener("click", function() {
+                          if (document.getElementById('flexRadioDefault1').checked) {
+                                          carFare = $('#flexRadioDefault1').val();
+                                    }else{
+                                      carFare = 0
+
+                                    }
+                                    if (document.getElementById('flexRadioDefault2').checked) {
+                                          busFare = $('#flexRadioDefault2').val();
+
+                                    }
+                                    else{
+                                      busFare = 0;
+                                    }
+                                    if (document.getElementById('flexRadioDefault3').checked) {
+                                          noBusCar = $('#flexRadioDefault3').val();
+
+                                    }
+                                    else{
+                                      noBusCar =0;
+                                    }
+                                    sessionStorage.setItem("carFare", carFare);
+                                    sessionStorage.setItem("busFare", busFare);
+                                    sessionStorage.setItem("noBusCar", noBusCar);
+
+                                    console.log((carFare));
+                                    console.log((busFare));
+                                    console.log((noBusCar));
+                                              })
+                      })(i);
+                    }
+
+              // transportCheck.addEventListener('click', ()=>{
+              //   console.log($('input[name="flexRadioDefault"]:checked').val());
+              // });
+              console.log(transportCheck);
+             
+
+
+             
+
 
  /////////////////////////////////////////////Room Food Destination//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
               const  room = [];
+              const room_name = [];
             const room_price = [];
             $(".get_room").on('click',(e)=>{      
               const getRoom = document.getElementById(e.target.id);
               if (getRoom.checked == true){
+                // console.log(e.target.dataset.id);
+                      room_name.push(e.target.dataset.name);
                       room.push(e.target.dataset.id);
+                      // console.log(e.target.value);
                       room_price.push(e.target.value);
                     } 
                     else {
-                      room.pop(e.target.dataset.id);
-                      room_price.pop(e.target.value);
+                      // console.log(e.target.value);
+                      for( let i = 0; i < room.length; i++){ 
+    
+                              if ( room[i] === e.target.dataset.id ) { 
+
+                                room.splice(i, 1); 
+                                room_price.splice(i, 1); 
+                              }
+
+                          }
+
+
+                      // room.pop(e.target.dataset.id);
+                      // room_price.pop(e.target.value);
 
                     }
                    roomTotal = sum(room_price);
-              
+                 
+                
                    rooms= (room.toString());
+
+                   room_names = (room_name.toString());
+                   console.log(room_names);
+                   sessionStorage.setItem("room_names", room_names);
+
                    sessionStorage.setItem("room", rooms);
                    sessionStorage.setItem("roomTotal", roomTotal);
+                  //  console.log(room);
+                  //  console.log(room_price);
 
                   //  console.log((roomTotal));
                   
@@ -804,56 +920,101 @@ $(function () {
               
             const  food = [];
             const food_price = [];
+            const food_name = [];
            
             $(".get_food").on('click',(e)=>{      
               const getFood = document.getElementById(e.target.id);
               if (getFood.checked == true){
+                      
+                      food_name.push(e.target.dataset.name);
                       food.push(e.target.dataset.id);
                       food_price.push(e.target.value);
                     } 
                     else {
-                      food.pop(e.target.dataset.id);
-                      food_price.pop(e.target.value);
+                      // console.log(e.target.dataset.id);
+
+                      for( let i = 0; i < food.length; i++){ 
+    
+                    if ( food[i] === e.target.dataset.id ) { 
+
+                      food.splice(i, 1); 
+                      food_price.splice(i, 1); 
+                    }
+
+                }
+
+                      // food.pop(e.target.dataset.id);
+                      // food_price.pop(e.target.value);
 
                     }
                    foodTotal = sum(food_price);
                  
                    foods= (food.toString());
+
+                   food_names = (food_name.toString());
+                   sessionStorage.setItem("food_names", food_names);
+                   console.log(food_names);
+
                    sessionStorage.setItem("food", foods);
                    sessionStorage.setItem("foodTotal", foodTotal);
 
-                  //  console.log((foodTotal));
+                   console.log((foodTotal));
 
                   //   console.log(food);
       
             });
 
+            const  destination_name = [];
             const  destination = [];
             const destination_price = [];
             $(".get_destination").on('click',(e)=>{      
               const getDestination = document.getElementById(e.target.id);
+              
               if (getDestination.checked == true){
+
+                      destination_name.push(e.target.dataset.name);
                       destination.push(e.target.dataset.id);
                       destination_price.push(e.target.value);
                     } 
                     else {
-                      destination.pop(e.target.dataset.id);
-                      destination_price.pop(e.target.value);
+
+                      for( let i = 0; i < food.destination; i++){ 
+                              
+                              if ( destination[i] === e.target.dataset.id ) { 
+
+                                destination.splice(i, 1); 
+                                destination_price.splice(i, 1); 
+                              }
+
+                          }
+
+                      // destination.pop(e.target.dataset.id);
+                      // destination_price.pop(e.target.value);
 
                     }
                     destinationTotal = sum(destination_price);
                     destinations= (destination.toString());
+                    destination_names = (destination_name.toString());
+                    console.log(destination_names);
+                    
+                   sessionStorage.setItem("destination_names", destination_names);           
                    sessionStorage.setItem("destination", destinations);
                    sessionStorage.setItem("destinationTotal", destinationTotal);
 
-                  //  console.log((foodTotal));
-                     allTotal = [sessionStorage.getItem("roomTotal"),sessionStorage.getItem("foodTotal"),sessionStorage.getItem("destinationTotal")]
-                    //  console.log((allTotal));
+             
+
+              
+            
+                   console.log((sessionStorage.getItem("carFare")));
+                     allTotal = [sessionStorage.getItem("roomTotal"),sessionStorage.getItem("foodTotal"),sessionStorage.getItem("destinationTotal"),sessionStorage.getItem("carFare"),sessionStorage.getItem("busFare"),sessionStorage.getItem("noBusCar")]
+                            
+                     console.log((allTotal));
                      sumTotal = sum(allTotal);
                      sessionStorage.setItem("sumTotal", sumTotal);
-                    // console.log(sumTotal);
+                
 
-                  //  console.log(destinationTotal);
+                   console.log(destinationTotal);
+                       console.log(sumTotal);
       
             });
 
@@ -1013,7 +1174,7 @@ $(function () {
 
             function save_booking(e){
                             
-                            let hotelId = <?php echo $hotel_id ?>;
+                            let hotelId = <?php echo $hotel_id ?>; 
                             
                             let fullName = $('#full_name').val();
                             let gender = $('#gender').val();
@@ -1023,13 +1184,26 @@ $(function () {
                             let time = $('#time').val();
                             
                             let mobileNumber = $('#mobile_number').val(); 
+                            if(document.getElementById('flexRadioDefault1').checked){
+                              var  transportvalue = 'car';
+                            }else if(document.getElementById('flexRadioDefault2').checked){
+                              var  transportvalue = 'bus';
+
+                            }else{
+                              var  transportvalue = 'none';
+
+                            }
                             // let totalAmount =  $('#total_amount').val(); 
                             // console.log('here');
                             // console.log(typeof(totalAmount));
                             let totalAmount = sessionStorage.getItem("sumTotal");
-                            let foods= sessionStorage.getItem("food");
-                            let rooms = sessionStorage.getItem("room");
-                            let destinations = sessionStorage.getItem("destination");
+                            let foods= sessionStorage.getItem("food_names");
+                            let rooms = sessionStorage.getItem("room_names");
+                            let destinations = sessionStorage.getItem("destination_names");
+                           
+
+
+
                             // alert(destinations);
                             // image = image.substring(image.lastIndexOf("\\") + 1, image.length);
                     
@@ -1046,6 +1220,7 @@ $(function () {
                                   fullName:fullName,
                                   gender:gender,
                                   email:email,
+                                  transport:transportvalue,
                                   currentAddress:currentAddress,
                                   bookingDate:bookingDate,
                                   time:time,
@@ -1235,6 +1410,9 @@ $(function () {
                                   let hotelEmail = "<?php print_r($hotel['email']); ?>";
                                   let hotelAddress = "<?php print_r($hotel['address']); ?>";
                                   let hotelPhone = "<?php print_r($hotel['phone']); ?>";
+                                  let hotelCar = "<?php print_r($hotel['car']); ?>";
+                                  let hotelBus = "<?php print_r($hotel['bus']); ?>";
+
                                 
                                 <?php }?>
                                 // console.log(hotelName);
@@ -1245,6 +1423,7 @@ $(function () {
                               let charge = 100;
                               let total =  sum([ownerFee,charge,amount])
                               const invoicePrint = document.querySelector('.invoice-print');
+                         
                               // console.log(invoicePrint);
                               invoicePrint.innerHTML = `
                               

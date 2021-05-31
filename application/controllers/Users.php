@@ -46,21 +46,30 @@ class Users extends CI_Controller {
             
             $data['role'] = $data['user']['role_id'];
             $role= $data['role'] ;
+
             //For customer
             if($role === '3'){
 
             $data['hotels'] = $this->Hotel_model->get_booked_hotel_details($con);   
-                $hotel_array = [];
-            foreach($data['hotels'] as $hotel){
-                if($hotel){
-                    array_push($hotel_array,$hotel);
-                } 
+            
+
+            $hotel_array = [];
+            if($data['hotels']){
+                
+                foreach($data['hotels'] as $hotel){
+                    if($hotel){
+                        array_push($hotel_array,$hotel);
+                    } 
+                }
             }
+            
             $data['hotels'] = $hotel_array;
+            
+            
             $data['get_loyalty'] = $this->Booking_model->loyalty_point();
-           
-            // print_r(($hotel_array));
+            // print_r( $data['get_loyalty'] );
             // exit();
+           
                 
                 
             
@@ -72,7 +81,7 @@ class Users extends CI_Controller {
             }
            
                
-            
+             
  
             $this->load->view('elements/header', $data);  
             $this->load->view('customer/dashboard/navbar', $data); 
@@ -84,6 +93,7 @@ class Users extends CI_Controller {
             }
             //For Seller
             if($role === '2'){
+                
                 $data['bookings'] = $this->Booking_model->get_all_seller_booking($con);
                 // print_r($con);
                 // exit();
@@ -93,7 +103,7 @@ class Users extends CI_Controller {
                 $data['pending_status'] = $this->Booking_model->get_hotel_seller_status($con);
                 // print_r($data['pending_status']);
                 // exit();
-                // $data['customer_review'] =  $this->Hotel_model->all_customer_review(); 
+                $data['customer_review'] =  $this->Hotel_model->all_customer_review(); 
 
                 // print_r($data['pending_status']);
                 // exit();
@@ -107,6 +117,11 @@ class Users extends CI_Controller {
             if($role === '1'){
             $data['hotels'] = $this->Hotel_model->get_hotel_details($con);
             $data['users'] = $this->user->get_all_users();
+            $data['all_sellers'] = $this->user->get_all_sellers();
+
+            
+            // print_r($data['all_sellers'] );
+            // exit();
             $data['users_status'] = $this->user->get_user_status($con);
             $data['bookings'] = $this->Booking_model->get_all_booking($con);
             

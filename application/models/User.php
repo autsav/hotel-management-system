@@ -7,7 +7,7 @@ class User extends CI_Model{
     } 
      
     /* 
-     * Fetch user data from the database 
+     * Fetch user data from the database  
      * @param array filter data based on the passed parameters 
      */ 
     function getRows($params = array()){ 
@@ -95,6 +95,22 @@ class User extends CI_Model{
 
         $this->db->select('*'); 
         $this->db->from($this->table); 
+        $query = $this->db->get(); 
+        $result = $query->result_array(); 
+        return $result;
+        
+        // $this->db->select("*");
+        // $this->db->from($this->table);
+        // $query = $this->db->get();        
+        // return $query->result();
+    }
+    public function get_all_sellers()
+    {
+
+        $this->db->select('*'); 
+        $this->db->from($this->table); 
+        $this->db->where('role_id', 2); 
+
         $query = $this->db->get(); 
         $result = $query->result_array(); 
         return $result;

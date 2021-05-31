@@ -48,14 +48,14 @@ background-color: white;
 <div class="navbar-nav" style=" height:50px">
     <!-- <img src="<?php echo base_url('images/fav.png'); ?>" alt=""> -->
     <div class="hotel-header">
-      <a href="<?php echo base_url('users/customer_home/') ?>" class="nav-link">
+      <a href="<?php echo base_url('users/customer_home/') ?>" class="navbar-brand">
       <span  class="brand-text font-weight-dark" style="font-size: 25px; color:white">Hotel Management System</span>
 
       </a>
     </div>
   
-            
-          <ul class="navbar-nav" style="margin-top: 10px; padding-left:10px">
+           <div class="collapse navbar-collapse">
+               <ul class="navbar-nav" style="margin-top: 10px; padding-left:10px">
               <li class="nav-item">
                 
                 <div class="navbar-search-block">
@@ -74,6 +74,9 @@ background-color: white;
                 </div>
               </li>
         </ul>
+
+           </div> 
+        
 </div>
 <!-- <ul class="navbar-nav" style="margin-left: 5px;">
  
@@ -82,6 +85,7 @@ background-color: white;
 </ul> -->
 
 <!-- Right navbar links -->
+<div class="collapse navbar-collapse">
 <ul class="navbar-nav ml-auto">
   <!-- Navbar Search -->
   <!-- <li class="nav-item" style="margin-left: 10px; margin-top:-5px">
@@ -107,4 +111,6 @@ background-color: white;
     </a>
   </li>
 </ul>
+</div>
+
 </nav>

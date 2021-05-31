@@ -29,6 +29,44 @@ class Hotel extends CI_Controller
 	{
 		$this->load->view('register');
 	}
+	public function save_seller_data()
+	{
+		
+	
+		if($this->input->post('type')==1)
+		{   
+			// print_r('hiuds');
+			// exit();
+			
+			$name=$this->input->post('name');
+			$email=$this->input->post('email');
+            $address=$this->input->post('address');
+            $rate=$this->input->post('rate');
+			$car=$this->input->post('car');
+			$bus=$this->input->post('bus');
+
+			$phone=$this->input->post('number');
+			$image=$this->input->post('image');
+			$description=$this->input->post('description');
+
+			// $user_id=$this->input->post('userId');
+            $user_id =$this->session->userdata('userId');
+			// print_r($user_id);
+			// exit();
+
+			$role = $this->db->get_where('users', array('id' => $user_id), $limit=1, $offset=0)->result_array();
+			// print_r($role);
+			// exit();
+			$role_id = $role[0]['role_id'];
+			
+
+			$this->Hotel_model->saverecords($name,$email,$address,$rate,$car,$bus,$phone,$image,$user_id,$role_id,$description);	
+			echo json_encode(array(
+				"statusCode"=>200
+			));
+		} 
+	}
+
     public function savedata()
 	{
 		
@@ -37,23 +75,29 @@ class Hotel extends CI_Controller
 		{   
 			// print_r('hiuds');
 			// exit();
-
+			
 			$name=$this->input->post('name');
 			$email=$this->input->post('email');
             $address=$this->input->post('address');
             $rate=$this->input->post('rate');
+			$car=$this->input->post('car');
+			$bus=$this->input->post('bus');
+
 			$phone=$this->input->post('number');
 			$image=$this->input->post('image');
 			$description=$this->input->post('description');
 
-            $user_id =$this->session->userdata('userId');
+			$user_id=$this->input->post('userId');
+            // $user_id =$this->session->userdata('userId');
 			
 
 			$role = $this->db->get_where('users', array('id' => $user_id), $limit=1, $offset=0)->result_array();
+			// print_r($role);
+			// exit();
 			$role_id = $role[0]['role_id'];
 			
 
-			$this->Hotel_model->saverecords($name,$email,$address,$rate,$phone,$image,$user_id,$role_id,$description);	
+			$this->Hotel_model->saverecords($name,$email,$address,$rate,$car,$bus,$phone,$image,$user_id,$role_id,$description);	
 			echo json_encode(array(
 				"statusCode"=>200
 			));
@@ -234,9 +278,11 @@ class Hotel extends CI_Controller
 	}
 	 function view_all_customer_review()
 	 {
+		
 		if($this->input->post('type') == '1'){
            
             $data= $this->Hotel_model->all_customer_review();
+			
 			
             if($data){
 
@@ -246,6 +292,7 @@ class Hotel extends CI_Controller
                 ));
             }else{
                 echo json_encode(array(
+					"data" =>$data,
                     "statusCode"=>201,
                 ));
 
@@ -277,12 +324,15 @@ class Hotel extends CI_Controller
 			$name=$this->input->post('name');
 			$email=$this->input->post('email');
             $address=$this->input->post('address');
+			$description = $this->input->post('description');
             $rate=$this->input->post('rate');
+			$car=$this->input->post('car');
+            $bus=$this->input->post('bus');
 			$phone=$this->input->post('number');
 			$image=$this->input->post('image');
             $hotel_id = $this->input->post('hotelId');
-			$data = $this->Hotel_model->update_hotel_data($name,$email,$address,$rate,$phone,$image,$hotel_id);
-		
+			$data = $this->Hotel_model->update_hotel_data($name,$email,$address,$description,$rate,$car,$bus,$phone,$image,$hotel_id);
+			
 			if($data == '1'){
 
                 echo json_encode(array(

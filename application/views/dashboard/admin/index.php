@@ -90,7 +90,7 @@
                 <div class="col-lg-3 col-6">            
                   <div class="small-box bg-info  ">
                     <div class="inner no-of-staff">              
-                      <h3>13</h3>
+                      <h3>0</h3>
                       <p>Staffs</p> 
                     </div>
                     <div class="icon">
@@ -131,7 +131,7 @@
                   <div class="small-box bg-danger">
                     <div class="inner" id="dashboard-review">
                       
-                      <h3>31</h3>
+                      <h3>0</h3>
 
                       <p>Reviews</p>
                     </div>
@@ -194,6 +194,14 @@
                                 <option> 5</option>
                               </select>
                             </div>
+                          <div class="form-group">
+                            <label for="transporation">Add Transporation</label><br>
+                            <label for="car">Car :</label><input type="number" class="form-control  " id="car_price" name="car"   placeholder="Add Car Fare Price ">
+                            <label for="bus">Bus :</label><input type="number" class="form-control  " id="bus_price" name="bus"   placeholder="Add Bus Fare Price ">
+
+                        </div>
+
+                            
 
                         
                         <div class="form-group">
@@ -258,13 +266,13 @@
                       <div class="card-body" style="background-color: ;">
                      
                           <div class="form-group" style="background-color: #f4f6f999;">
-                          <div style="margin:10px;">
-                          <label name="select_hotel"><h5><strong> Choose Hotel</strong> </h5></label>
-                                <select id="select_hotel" class="form-control" required>
-                                <?php foreach($hotels as $hotel){ ?>
-                                <option value="<?php echo $hotel['hotel_id']?>" > <?php echo $hotel['name']?></option>
-                                <?php }?>
-                                </select>
+                          <div style="margin:10px;" id="choose-hotel">
+                            <label name="select_hotel"><h5><strong> Choose Hotel</strong> </h5></label>
+                                  <select id="select_hotel" class="form-control" required>
+                                  <?php foreach($hotels as $hotel){ ?>
+                                  <option value="<?php echo $hotel['hotel_id']?>" > <?php echo $hotel['name']?></option>
+                                  <?php }?>
+                                  </select>
 
                           </div>
                              
@@ -902,14 +910,21 @@ $(document).ready(function(){
                   cache: false,
                   success: function(result){
                    
-
+                    console.log('hreerr');
+                    
                     let dataResult = JSON.parse(result);
+                    
                     reviews = dataResult.data;
-                    dashboardReview.innerHTML = `<h3>${reviews.length}</h3>
+                    if(reviews==0){
+                      dashboardReview.innerHTML = `<h3>0</h3>
 
                                                 <p>Reviews</p>`;
-                    console.log(reviews.length);
-                    reviews.forEach((review)=>{
+
+                    }else{
+                      dashboardReview.innerHTML = `<h3>${reviews.length}</h3>
+
+                                                <p>Reviews</p>`;
+                                                reviews.forEach((review)=>{
                       // console.log('down');
                       // console.log(review['rating']);
 
@@ -986,6 +1001,10 @@ $(document).ready(function(){
                       </div>
                       `;
                     });
+
+                    }
+                    
+           
                    
             
                     
@@ -1011,7 +1030,7 @@ document.getElementById("whole-div").onload =  view_all_staff_div(); ;
 function view_all_staff_div(){
 
       $(document).ready(function(){
-    const allHotelStaffBody = document.getElementById('view-all-staff-body');
+          const allHotelStaffBody = document.getElementById('view-all-staff-body');
           const noOfStaff = document.querySelector('.no-of-staff')
 
 
@@ -1028,8 +1047,8 @@ function view_all_staff_div(){
 
                         let dataResult = JSON.parse(result);
                         staffs = dataResult.data;
-                      
-                        noOfStaff.innerHTML = `
+                        if(staffs){
+                          noOfStaff.innerHTML = `
                         <h3>${staffs.length}</h3>
                           <p>Staffs</p> `;
 
@@ -1071,6 +1090,10 @@ function view_all_staff_div(){
                         
                     `;
                         });
+
+                          
+                        }
+                    
                        }
                     });
 
@@ -1811,10 +1834,12 @@ function status_completed($booking_id){
               let email = $('#email_address').val();
               let address = $('#hotel_address').val();
               let rate = $('#hotel_star_rate').val();
+              let carPrice = $('#car_price').val();
+              let busPrice = $('#bus_price').val();
               let number = $('#phone_number').val();
               let description = $('#hotel_description').val();
 
-            
+             
               let image = $('#upload_image').val();
               image = image.substring(image.lastIndexOf("\\") + 1, image.length);
         
@@ -1823,7 +1848,7 @@ function status_completed($booking_id){
               if(name!="" && email!="" && address!="" && rate!="" && number!="" && image!=""){
                 $('#submit-hotel').attr("disabled", "disabled");
                 $.ajax({
-                  url:"<?php echo base_url('hotel/savedata'); ?>",
+                  url:"<?php echo base_url('hotel/save_seller_data'); ?>",
                   type:"POST",
                   data:{
                     type:1,
@@ -1831,6 +1856,8 @@ function status_completed($booking_id){
                     email:email,
                     address:address,
                     rate:rate,
+                    car:carPrice,
+                    bus:busPrice,
                     number:number,
                     image:image,
                     description:description,
@@ -1882,8 +1909,8 @@ function status_completed($booking_id){
   const body = document.querySelector(".body");
   const contents = document.querySelectorAll(".content");
   const contentHeader = document.querySelector(".content-header");
-
-  
+  const chooseHotel = document.getElementById('choose-hotel');
+    console.log(chooseHotel);
 
 
   
@@ -1935,4 +1962,6 @@ function status_completed($booking_id){
    }
    return separateWord.join(' ');
 }
+
+
 </script>

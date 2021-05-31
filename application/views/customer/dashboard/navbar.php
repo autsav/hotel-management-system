@@ -74,13 +74,10 @@ background-color: white;
 </ul>
 
 <!-- Right navbar links -->
-<ul class="navbar-nav ml-auto">
-<!-- Navbar Search -->
-<!-- <li class="nav-item" style="margin-left: 10px; margin-top:-5px">
-<a href="#" class="nav-link"><?php echo $user['user_type']; ?></a>
-</li> -->
 
-<li class="nav-item"2>
+<div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav ml-auto">
+      <li class="nav-item">
   <li class="nav-item d-none d-sm-inline-block">
       <a href="<?php echo base_url('users/customer_home/') ?>" class="nav-link navdeactive">Home</a>
   </li>
@@ -92,7 +89,10 @@ background-color: white;
    
 </li>
 <li class="nav-item d-none d-sm-inline-block"  >
-    <a href="<?php echo base_url('users/customer_home/') ?>" class="nav-link customerPoint" ><span style=" color:black; font-weight: bold;">Loyalty Point : </span><span style="color:black;padding:6px ;border-radius:50px;background:white; font-weight: bold;"><?php print_r($get_loyalty)?></span> </a>
+    <a href="<?php echo base_url('users/customer_home/') ?>" class="nav-link customerPoint" >
+    <span style=" color:black; font-weight: bold;">Loyalty Point : </span>
+    <span style="color:black;padding-right:6px ;padding-left:6px ;border-radius:50px;background:white; font-weight: bold;">
+      <?php print_r($get_loyalty)?></span> </a>
   </li>
 
 
@@ -101,5 +101,9 @@ background-color: white;
     <i class="fas fa-sign-out-alt fa-2x" style="height: 20px; color:white;" ></i>
     </a>
 </li>
-</ul>
+      </ul>
+    </div>
+
+
+
 </nav>

@@ -456,7 +456,7 @@
             // console.log(allHotelBookingsBody);
           
             $.ajax({
-                  url: "<?php echo base_url(); ?>/booking/view_all_customer_booking",    
+                  url: "<?php echo base_url(); ?>booking/view_all_customer_booking",    
                   type: "POST",
                   data: {
                   type:1
@@ -465,7 +465,9 @@
                   success: function(result){
                     let dataResult = JSON.parse(result);
                     bookings = ((dataResult.data));
-                    if(bookings == ''){
+                    console.log(bookings);
+                    if(bookings == 0){
+                      console.log('in');
                       dashboardBooking.innerHTML = `
                     <div class="small-box bg-danger">
                     <div class="inner">
@@ -477,7 +479,8 @@
                     <i class="fas fa-bookmark"></i>
                     </div>
                   </div>`;
-                    }
+                    }else{
+                      console.log('out');
                     dashboardBooking.innerHTML = `
                     <div class="small-box bg-danger">
                     <div class="inner">
@@ -490,8 +493,7 @@
                     </div>
                   </div>`;
 
-                   
-                    bookings.forEach((booking)=>{
+                  bookings.forEach((booking)=>{
                       console.log(booking)
                       allHotelBookingsBody.innerHTML += `
                    
@@ -528,6 +530,12 @@
 
 
                     });
+
+                    }
+                   
+
+                   
+                 
                    }
                 });
              

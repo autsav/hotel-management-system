@@ -6,11 +6,11 @@ class Hotel_model extends CI_Model
         $this->table = 'hotel'; 
     } 
 
-	function saverecords($name,$email,$address,$rate,$phone,$image, $user_id, $role_id, $description)
+	function saverecords($name,$email,$address,$rate,$car,$bus,$phone,$image, $user_id, $role_id, $description)
 	{
        
-		$query="INSERT INTO `hotel`( `name`, `email`,`address`,`rate`, `phone`, `image`,`user_id`,`role_id`,`description`) 
-		VALUES ('$name','$email','$address','$rate','$phone','$image' ,'$user_id','$role_id','$description')";
+		$query="INSERT INTO `hotel`( `name`, `email`,`address`,`rate`,`car`,`bus`, `phone`, `image`,`user_id`,`role_id`,`description`) 
+		VALUES ('$name','$email','$address','$rate','$car','$bus','$phone','$image' ,'$user_id','$role_id','$description')";
     //   print_r($query);
     //   exit();
 		$this->db->query($query);
@@ -62,12 +62,17 @@ class Hotel_model extends CI_Model
         }
         $all_hotel_id = array_unique($all_hotel_id);
 
-        $all_result= [];
-        foreach($all_hotel_id as $id){
-           $result = $this->hotel($id);
-            
-           array_push($all_result, $result[0]);
+        if ($all_hotel_id){
+            $all_result= [];
+            foreach($all_hotel_id as $id){
+               $result = $this->hotel($id);
+                
+               array_push($all_result, $result[0]);
+            }
+        }else{
+        $all_result = 0 ;
         }
+      
         
         return $all_result;
      
@@ -150,7 +155,7 @@ class Hotel_model extends CI_Model
 			// return true;
 		}
     public function view_hotel($hotel_id, $user_id){
-        $this->db->select('image,rate,name,email,address,phone,description'); 
+        $this->db->select('image,rate,name,email,address,phone,description,car,bus'); 
         $this->db->from($this->table); 
         $this->db->where('hotel_id', $hotel_id);
         // $this->db->where('user_id', $user_id);
@@ -169,7 +174,10 @@ class Hotel_model extends CI_Model
 
         $query = $this->db->get(); 
         $result = $query->result_array(); 
-       
+        if(!$result){
+            return ['No image found'];
+        }
+     
         return $result;
 
     }
@@ -185,7 +193,7 @@ class Hotel_model extends CI_Model
         
     }
     public function all_customer_review()
-    {
+    {   
         $user_id = $this->session->userdata('userId') ;
        
        
@@ -196,18 +204,26 @@ class Hotel_model extends CI_Model
         // $this->db->where('booking_date <=', $today_date);
     
         $id = $this->db->get()->result_array(); 
-      
-       
-        $hotel_id =  ($id[0]['hotel_id']);
-   
-       
-       
+        
+        if($id){
+            $hotel_id =  ($id[0]['hotel_id']);
+     
         //return the booking details with hotel image
         $reviewing_customer= $this->reviewing_customer($hotel_id);
-     
-        
-
+        // print_r($reviewing_customer);
+        // exit();
         return $reviewing_customer;
+            
+            
+
+        }else{
+            $reviewing_customer = '0';
+            return $reviewing_customer;
+        }
+       
+      
+       
+        
 
     }
     public function reviewing_customer($hotel_id){
@@ -218,28 +234,34 @@ class Hotel_model extends CI_Model
         $this->db->where('hotel_id', $hotel_id);
 
         $id = $this->db->get()->result_array(); 
-       
-        $reviewing_customer_id =  ($id[0]['user_id']);
+        
+        if($id){
+            $reviewing_customer_id =  ($id[0]['user_id']);
         
           
 
-        // $this->db->select('users.first_name,users.last_name,rating.comment'); 
-        // $this->db->from('users');
-        // $this->db->join('rating', 'users.id = rating.user_id');
-        // $this->db->where('rating.user_id', $reviewing_customer_id);
-
-        $this->db->select('users.first_name,users.last_name,rating.comment,rating.rating'); 
-        $this->db->from('users');
-        $this->db->join('rating', 'rating.user_id = users.id');
-        // $this->db->where('rating.user_id', $reviewing_customer_id);
-        $this->db->where('rating.hotel_id', $hotel_id);
-
-        $query = $this->db->get(); 
-        $result = $query->result_array(); 
-      
-      
-      
-          return $result;
+            // $this->db->select('users.first_name,users.last_name,rating.comment'); 
+            // $this->db->from('users');
+            // $this->db->join('rating', 'users.id = rating.user_id');
+            // $this->db->where('rating.user_id', $reviewing_customer_id);
+    
+            $this->db->select('users.first_name,users.last_name,rating.comment,rating.rating'); 
+            $this->db->from('users');
+            $this->db->join('rating', 'rating.user_id = users.id');
+            // $this->db->where('rating.user_id', $reviewing_customer_id);
+            $this->db->where('rating.hotel_id', $hotel_id);
+    
+            $query = $this->db->get(); 
+            $result = $query->result_array(); 
+          
+          
+          
+              return $result;
+        }else{
+            $result = null;
+            return $result;
+        }
+       
     }
     public function save_advertisement($image){
         $query="INSERT INTO `advertisement`( `image`) 
@@ -250,13 +272,18 @@ class Hotel_model extends CI_Model
   
 
     }
-    public function update_hotel_data($name,$email,$address,$rate,$phone,$image,$hotel_id){
+    public function update_hotel_data($name,$email,$address,$description,$rate,$car,$bus,$phone,$image,$hotel_id){
+        // print_r($car);
+	
         if($image){
             $data=array(
                 'name' => $name,
                 'email' => $email,
                 'address' => $address,
+                'description' => $description,
                 'rate' => $rate,
+                'car' => $car,
+                'bus'=> $bus,
                 'phone' => $phone,
                 'image' => $image,
                 
@@ -270,7 +297,10 @@ class Hotel_model extends CI_Model
                 'name' => $name,
                 'email' => $email,
                 'address' => $address,
+                'description' => $description,
                 'rate' => $rate,
+                'car' => $car,
+                'bus'=> $bus,
                 'phone' => $phone,
                 
                 
@@ -286,12 +316,12 @@ class Hotel_model extends CI_Model
     }
 
     public function get_hotel_name($hotel_id){
-        $this->db->select('name,email,address,phone'); 
+        $this->db->select('name,email,address,phone,car,bus'); 
         $this->db->from('hotel'); 
         $this->db->where('hotel_id', $hotel_id);
         $query = $this->db->get(); 
         $result = $query->result_array(); 
-       
+      
           return $result;
 
 

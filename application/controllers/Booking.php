@@ -38,19 +38,21 @@ class Booking extends CI_Controller
 			$full_name=$this->input->post('fullName');
             $gender=$this->input->post('gender');
             $email=$this->input->post('email');
+            $transport = $this->input->post('transport');
 			$current_address=$this->input->post('currentAddress');
             $booking_date=$this->input->post('bookingDate');
             $time=$this->input->post('time');
 			$mobile=$this->input->post('mobileNumber');
 			$total_amount=$this->input->post('totalAmount');
             $room_id=$this->input->post('rooms');
+          
             $destination_id=$this->input->post('destinations');
             $food_id=$this->input->post('foods');
 
             $customer_id =$this->session->userdata('userId');
             $hotel_id = $this->input->post('hotelId');
             
-		    $recent_booking_id=	$this->Booking_model->saverecords($full_name, $gender,$email,$current_address,$booking_date,$time,
+		    $recent_booking_id=	$this->Booking_model->saverecords($full_name, $gender,$transport,$email,$current_address,$booking_date,$time,
             $mobile,$total_amount, $room_id,$destination_id,$food_id,$customer_id,$hotel_id);	
 			echo json_encode(array(
 				"statusCode"=>200,
@@ -82,11 +84,13 @@ class Booking extends CI_Controller
             return '0';
         }
  }
-    public function view_all_customer_booking(){
+    public function view_all_customer_booking(){ 
         
         if($this->input->post('type') == '1'){
            
             $data= $this->Booking_model->all_customer_booking();
+            // print_r($data);
+            // exit();
            
             if($data){
 
@@ -96,6 +100,7 @@ class Booking extends CI_Controller
                 ));
             }else{
                 echo json_encode(array(
+                    "data" =>$data,
                     "statusCode"=>201,
                 ));
 
